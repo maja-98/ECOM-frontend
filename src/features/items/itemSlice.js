@@ -11,10 +11,24 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
         }),
 
         getItemsbyItemId : builder.query({
-            query: (itemId) => `/items/${itemId}`,
+            query: (arg) => {
+                console.log(arg.itemId)
+                return {
+                url: `/items/${arg.itemId}`,
+                method:'GET',
+            }},
             providesTags: (result,error,arg) => [{type:'Item',id:result._id}]
         }),
+        getMultiItems : builder.mutation({
+            query: ({itemIds}) => ({
+                url : '/items/multi',
+                method: 'POST',
+                body:{
+                    itemIds
+                }
 
+            })
+        }),
         addNewItem : builder.mutation({
             query: initialItemData => ({
                 url : '/items',
@@ -58,5 +72,6 @@ export const {
     useGetItemsbyItemIdQuery,
     useAddNewItemMutation,
     useUpdateItemMutation,
-    useDeleteItemMutation
+    useDeleteItemMutation,
+    useGetMultiItemsMutation
  } = extendedItemApiSlice
