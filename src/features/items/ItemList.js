@@ -1,14 +1,13 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import { useUpdateCartMutation } from '../cart/cartSlice'
-import { useAddNewItemMutation, useDeleteItemMutation, useGetItemsbyItemIdQuery, useGetItemsQuery, useUpdateItemMutation } from './itemSlice'
+import { useAddNewItemMutation, useDeleteItemMutation,  useGetItemsQuery, useUpdateItemMutation } from './itemSlice'
 
 const ItemList = () => {
+  const location = useLocation()
+  console.log(location.state)
    const  {
-    data:Items,
-      isLoading,
-      isSuccess,
-      isError,
-      error
+    data:Items
    } = useGetItemsQuery()
     const [addNewItem] = useAddNewItemMutation()
     const [updateItem] = useUpdateItemMutation()

@@ -1,0 +1,21 @@
+.header-container{
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--NEUTRAL-CLR);
+    color: white;
+}
+.header-right-subcontainer{
+
+    gap: 10px;
+
+}
+.nav-links{
+
+    gap: 10px;
+
+}
+.nav-links>h4,.cart-btn,.logo{
+    cursor: pointer;
+}

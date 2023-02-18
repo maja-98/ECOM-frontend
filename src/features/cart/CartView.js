@@ -1,16 +1,11 @@
 import React from 'react'
-import {useGetMultiItemsMutation } from '../items/itemSlice'
 import { useAddNewOrderMutation } from '../orders/orderSlice'
 import { useAddNewCartMutation, useClearCartMutation, useDeleteCartMutation, useGetCartQuery, useUpdateCartMutation } from './cartSlice'
 
 const CartView = () => {
 
    const  {
-    data:Cart,
-      isLoading,
-      isSuccess,
-      isError,
-      error
+    data:Cart
    } = useGetCartQuery({username:'ADMIN'})
     const [addNewCart] = useAddNewCartMutation()
     const [updateCart] = useUpdateCartMutation()

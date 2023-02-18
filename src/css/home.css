@@ -1,0 +1,21 @@
+.home-banner{
+    width: 100%;
+}
+.home-banner-image{
+    width: 100%;
+    height: 100px;
+}
+.home-image{
+    object-fit: cover;
+    padding: 10px;
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
+}
+.home-image:hover {
+    opacity: 0.8;
+}
+.home-images-container{
+    display: flex;
+    flex-direction: column;
+}

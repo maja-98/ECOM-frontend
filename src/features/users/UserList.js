@@ -3,11 +3,7 @@ import { useAddNewUserMutation, useDeleteUserMutation, useGetUsersQuery, useUpda
 
 const UserList = () => {
    const  {
-    data:Users,
-      isLoading,
-      isSuccess,
-      isError,
-      error
+    data:Users
    } = useGetUsersQuery()
     const [addNewUser] = useAddNewUserMutation()
     const [updateUser] = useUpdateUserMutation()

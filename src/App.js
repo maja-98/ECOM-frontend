@@ -1,22 +1,32 @@
-import { useState } from 'react';
-import './App.css';
+import { Routes,Route } from 'react-router-dom';
+
+import Home from './components/Home';
+import LayOut from './components/LayOut';
 import CartView from './features/cart/CartView';
 import ItemList from './features/items/ItemList';
 import OrderList from './features/orders/OrderList';
 import UserList from './features/users/UserList';
-import Test from './Test';
 
 function App() {
-  const [show,setShow] = useState(true)
   return (
     <div className="App">
-      {show && <Test/>}
-      <button onClick={() => setShow(prev => !prev)} >Mount Toggle</button>
-      <ItemList/>
-      <UserList/>
-      <CartView/>
-      <OrderList/>
-
+      <Routes>
+        <Route path='/' element={<LayOut/>}>
+          <Route index element={<Home/>}/>
+          <Route path='cart' >
+            <Route index element={<CartView/>}/>
+          </Route>
+          <Route path='items'>
+            <Route index element={<ItemList/>}/>
+          </Route>
+          <Route path='orders'>
+            <Route index element={<OrderList/>}/>
+          </Route>
+          <Route path='users'>
+            <Route index element={<UserList/>}/>
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

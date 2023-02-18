@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Arvo");
+@import url("https://fonts.googleapis.com/css?family=Lora");
+@import url('./App.css');
+@import url('./home.css');
+@import url('./header.css');
+@import url('./footer.css');
+:root{
+    --SUCCESS-CLR :rgb(53, 202, 177);
+    --FAILURE-CLR :rgb(216, 39, 4);
+    --NEUTRAL-CLR :rgb(53, 54, 60);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    height: 100vh;
+    background-color: white;
+}
+button{
+    border: 0.5px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    font-family: 'Lora';
+    font-weight: 500;
+    margin:5px 10px;
+    border-color: white;
+    color: rgb(255, 255, 255);
+
+}
+button:hover{
+    opacity: 0.9;
+    border-color: rgba(33, 30, 30, 0.73);
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: "Open Sans";
+}
+p{
+    font-family: 'Lucida Sans'
+}
+.btn-success{
+    background-color: var(--SUCCESS-CLR);
+}
+.btn-failure{
+    background-color: var(--FAILURE-CLR);
+}
+.btn-neutral{
+    background-color: var(--NEUTRAL-CLR);
+}
+.container{
+   padding: 10px;
+}
+.grid-row-3{
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(3,4fr);
+}
+.grid-row-2{
+    display: grid;
+    grid-template-columns: repeat(2,6fr);
+}
+.carousal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex-center-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

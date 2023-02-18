@@ -19,6 +19,15 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
             }},
             providesTags: (result,error,arg) => [{type:'Item',id:result._id}]
         }),
+        getItemsbyCategory : builder.query({
+            query: (arg) => {
+                console.log(arg.category)
+                return {
+                url: `/items/category/${arg.category}`,
+                method:'GET',
+            }},
+            providesTags: (result,error,arg) => [{type:'Item',id:result._id}]
+        }),
         getMultiItems : builder.mutation({
             query: ({itemIds}) => ({
                 url : '/items/multi',
@@ -70,6 +79,7 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
 export const {
     useGetItemsQuery,
     useGetItemsbyItemIdQuery,
+    useLazyGetItemsbyCategoryQuery,
     useAddNewItemMutation,
     useUpdateItemMutation,
     useDeleteItemMutation,
