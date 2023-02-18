@@ -9,6 +9,17 @@ export const extendedUserApiSlice  = apiSlice.injectEndpoints({
                 {type:'User',id:'LIST'},...result.map(user=>({type:'User',id:user._id}))
             ]}
         }),
+        getUserbyId : builder.query({
+            query: (arg) => {
+                return {
+                url: `/items/${arg.userId}`,
+                method:'GET',
+            }},
+            providesTags : (result,error,arg) =>{ 
+                return [
+                {...result.map(user=>({type:'User',id:user._id}))}
+            ]}
+        }),
 
 
         addNewUser : builder.mutation({
@@ -51,6 +62,7 @@ export const extendedUserApiSlice  = apiSlice.injectEndpoints({
 
 export const {
     useGetUsersQuery,
+    useGetUserbyIdQuery,
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation
