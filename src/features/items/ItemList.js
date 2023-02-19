@@ -1,4 +1,4 @@
-import { faCaretDown, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import {useGetItemsQuery} from './itemSlice'
@@ -69,7 +69,10 @@ const ItemList = () => {
                     <p className='item-price'>₹{item.price} </p>
                   </div>
                   <div className='add-to-cart-container'>
-                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item)}>Add to Cart</button>
+                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item)}>
+                      <p className='sm-none'>Add to Cart</p> 
+                      <p className='lg-none'><FontAwesomeIcon  size='md' icon={faCartPlus}/></p>
+                    </button>
                   </div>
                   
                 </div>

@@ -9,3 +9,16 @@
     height: 250px;
     border-radius: 10px;
 }
+@media screen and (max-width:768px) {
+    .banner-container {
+            padding-left: var(--SMALL-CONTAINER-PADDING);
+            padding-right: var(--SMALL-CONTAINER-PADDING);
+    }
+    .banner-image {
+        object-fit: cover;
+        width: 100%;
+        height: 100px;
+        border-radius: 10px;
+    }
+
+}

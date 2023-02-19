@@ -1,8 +1,17 @@
 .footer-container{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     height: 30px;
     background-color: black;
     color: white;
+}
+@media screen and (max-width:768px) {
+    .footer-container {
+        position: absolute;
+            width: 100%;
+            height: 20px;
+            bottom: 0px;
+        }
 }

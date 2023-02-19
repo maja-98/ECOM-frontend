@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faChevronDown, faChevronUp, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping, faChevronDown, faChevronUp, faMagnifyingGlass, faRectangleList, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const navigate = useNavigate()
   const [categoryListShow,setCategoryListShow] = useState(false)
   return (
-    <div className='header-container container'>
+    <div className='header-container'>
       <h1 className='logo' onClick={()=>navigate('/')}>Dubai Pardhas</h1>
      
-      <div className='categories-list-container'>
+      <div className='categories-list-container sm-none'>
         <div onClick={()=>setCategoryListShow(prevState => !prevState)} className='flex-center-row pointer'>
-          <h4>Categories</h4>
-          {categoryListShow===false ? <FontAwesomeIcon  icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp}/>}
+          <h4 >Categories</h4>
+          {categoryListShow===false ? <FontAwesomeIcon className='checron-icon'  icon={faChevronDown} /> : <FontAwesomeIcon className='checron-icon' icon={faChevronUp}/>}
         </div>
         {categoryListShow && <div className='flex-center-column category-items'>
           <p>Pardha</p>
@@ -21,22 +21,27 @@ const Header = () => {
         </div>}
       </div>
 
-      <h4  onClick={() => navigate('/orders')} className='pointer'>My Orders</h4>
+      <h4  onClick={() => navigate('/orders')} className='pointer sm-none'>Orders</h4>
 
       <div className='search-container'>
         
         <input  className='search-box' type={'text'} placeholder={'Search Product'}></input>
         <FontAwesomeIcon className='search-icon'  icon={faMagnifyingGlass} />
       </div>
+
+      <div onClick={() => navigate('/orders')} className='flex-center-row pointer lg-none' >
+        <FontAwesomeIcon icon={faRectangleList} size='lg' />
+      </div>
   
       <div className='flex-center-row pointer'>
         <FontAwesomeIcon icon={faUser} size='lg' />
-        <h4>Account</h4>
+        <h4 className='sm-none'>Account</h4>
       </div>
+
 
       <div onClick={() => navigate('/cart')} className='flex-center-row pointer'>
         <FontAwesomeIcon icon={faCartShopping} size='lg' />
-        <h4>Cart</h4>
+        <h4 className='sm-none'>Cart</h4>
       </div>
       
 

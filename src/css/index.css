@@ -12,6 +12,7 @@
     --FAILURE-CLR :rgb(216, 39, 4);
     --NEUTRAL-CLR :white;
     --DEFAULT-CONTAINER-PADDING : 80px;
+    --SMALL-CONTAINER-PADDING: 20px;
     --DEFAULT-BG:rgba(243, 243, 243, 0.884);
 }
 
@@ -74,9 +75,7 @@ p{
 .btn-neutral{
     background-color: var(--NEUTRAL-CLR);
 }
-.container{
-   padding: 10px;
-}
+
 .grid-row-3{
     display: grid;
     height: 100%;
@@ -104,13 +103,43 @@ p{
     align-items: center;
     gap: 10px;
 }
-.filter-container{
-    padding-left: var(--DEFAULT-CONTAINER-PADDING);
-    padding-right:var(--DEFAULT-CONTAINER-PADDING); ;
-    display: flex;
-    justify-content: space-between  ;
-    padding-top: 5px;
-}
+
 .g-20{
     gap: 20px;
+}
+.lg-none{
+    display: none;
+}
+@media screen and (max-width:768px) {
+
+    input {
+        width: 150px;
+        height: 40px;
+        padding: 5px;
+        padding-left: 20px;
+        font-size: 10px;
+    }
+    h1{
+        font-size: medium;
+    }
+    h4{
+        font-size: 10px;    
+    }
+    h5{
+        font-size:9px;
+    }
+    h6{
+        font-size:8px;
+    }
+    p{
+        font-size: 7px;
+    }
+    button {
+        font-size: 9px;
+        width: 60px;
+    }
+    .lg-none{
+        display: flex;
+    }
+
 }
