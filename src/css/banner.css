@@ -1,0 +1,11 @@
+.banner-container{
+    width: 100%;
+    padding-left: var(--DEFAULT-CONTAINER-PADDING);
+    padding-right: var(--DEFAULT-CONTAINER-PADDING);
+}
+.banner-image{
+    object-fit:cover;
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}

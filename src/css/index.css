@@ -5,20 +5,39 @@
 @import url('./home.css');
 @import url('./header.css');
 @import url('./footer.css');
+@import url('./banner.css');
+@import url('./itemlist.css');
 :root{
     --SUCCESS-CLR :rgb(53, 202, 177);
     --FAILURE-CLR :rgb(216, 39, 4);
-    --NEUTRAL-CLR :rgb(53, 54, 60);
+    --NEUTRAL-CLR :white;
+    --DEFAULT-CONTAINER-PADDING : 80px;
+    --DEFAULT-BG:rgba(243, 243, 243, 0.884);
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 html{
-    height: 100vh;
+    width: 100%;
     background-color: white;
+    margin: 0px;
 }
+
+input{
+    width: 350px;
+    height: 40px;
+    padding: 5px;
+    padding-left: 20px;
+    border: 0px;
+    outline: 0px;
+    border-radius: 8px;
+    background-color: var(--DEFAULT-BG)
+
+}
+
 button{
     border: 0.5px solid black;
     border-radius: 5px;
@@ -27,19 +46,24 @@ button{
     font-family: 'Lora';
     font-weight: 500;
     margin:5px 10px;
-    border-color: white;
-    color: rgb(255, 255, 255);
+    border-color: black;
+    color: black;
+    background-color: white;
 
 }
 button:hover{
     opacity: 0.9;
     border-color: rgba(33, 30, 30, 0.73);
 }
+
 h1,h2,h3,h4,h5,h6{
     font-family: "Open Sans";
 }
 p{
     font-family: 'Lucida Sans'
+}
+.pointer{
+    cursor: pointer;
 }
 .btn-success{
     background-color: var(--SUCCESS-CLR);
@@ -71,4 +95,22 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+.flex-center-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.filter-container{
+    padding-left: var(--DEFAULT-CONTAINER-PADDING);
+    padding-right:var(--DEFAULT-CONTAINER-PADDING); ;
+    display: flex;
+    justify-content: space-between  ;
+    padding-top: 5px;
+}
+.g-20{
+    gap: 20px;
 }

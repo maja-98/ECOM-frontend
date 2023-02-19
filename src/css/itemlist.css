@@ -1,0 +1,88 @@
+.item-list-container{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding-left: var(--DEFAULT-CONTAINER-PADDING);
+    padding-right: var(--DEFAULT-CONTAINER-PADDING);
+    padding-top: 20px;
+    gap: 20px;
+    
+}
+.no-item-container{
+    display: flex;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+}
+.item-container{
+    background-color: var(--DEFAULT-BG);
+    padding: 15px;
+    padding-bottom: 5px;
+    border-radius: 5px ;
+}
+.item-details-container{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.item-details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.item-image{
+    border-radius: 5px;;
+    width: 250px;
+}
+.item-price{
+    font-size: 12px;
+    font-weight: bolder;
+}
+.add-to-cart-container{
+    display: flex;
+    justify-content: space-between;
+}
+.quanity-input{
+    width: 40px;
+    height: 35px;
+    padding: 5px;
+    padding-bottom: 2px;
+    background-color: white;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+.add-to-cart-button{
+    border-color: black;
+    border-radius: 15px;
+    margin-left: 0px;
+}
+.add-to-cart-button:hover {
+    background-color: black;
+    color: white;
+}
+.quantity-handler-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:4px;
+    
+}
+.filter-btn{
+    width: fit-content;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+
+}
+.filter-btn:hover{
+    color:white;
+    background-color: black;
+}
+

@@ -1,30 +1,88 @@
+import { faCaretDown, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-import { useLocation } from 'react-router-dom'
-import { useUpdateCartMutation } from '../cart/cartSlice'
-import { useAddNewItemMutation, useDeleteItemMutation,  useGetItemsQuery, useUpdateItemMutation } from './itemSlice'
+import {useGetItemsQuery} from './itemSlice'
+
 
 const ItemList = () => {
-  const location = useLocation()
-  console.log(location.state)
-   const  {
-    data:Items
-   } = useGetItemsQuery()
-    const [addNewItem] = useAddNewItemMutation()
-    const [updateItem] = useUpdateItemMutation()
-    const [deleteItem] = useDeleteItemMutation()
-    const [updateCart] = useUpdateCartMutation()
-  return (
-    <div>
-      <h1>Item</h1>
-      <button onClick={()=>addNewItem({itemname:'Test New New New Item 2',price:232,category:'Maxi',brand:'Mehar'})}>Add Item</button>
-      <button onClick={()=>updateItem({id:"63ee3bd0fed1c430383cfa3f",itemname:'Test Updated 3 Item',price:232,category:'Maxi',brand:'Mehar'})}>Update Item</button>
-      <button onClick={()=>deleteItem({id:"63ee3a7afed1c430383cfa15",itemname:'Test Item',price:232,category:'Maxi',brand:'Mehar'})}>Delete Item</button>
-      {Items?.map(item => <h3 key={item._id}>{item.itemname}  
   
-      <button onClick={() => updateCart({itemId:item.itemId,username:"ADMIN",direction:"add"})}>Add to Cart {item.itemId}</button>
-      <button onClick={() => deleteItem({id:item._id})}>{item._id}</button></h3>)}
+  const {
+    data:items,
+    isLoading,
+    isError,
+    error
+  } = useGetItemsQuery()
+  
+  const handleAddtoCart = (item) =>{
+    console.log(item.itemname, 'Added to cart')
+  }
+
+  let content;
+  if (isLoading){
+   content = (
+   <div className='no-item-container '>
+      <div className='flex-center-column'>
+        <FontAwesomeIcon icon={faSpinner} spin size='3x'/>
+        <p>Loading...</p>
+      </div>
     </div>
-  )
+   )
+  }
+  else if (isError){
+   content = (
+   <div className='no-item-container '>
+      <div className='flex-center-column'>
+        <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
+        <p>Error</p>
+        <p>{error}</p>
+      </div>
+    </div>
+   )
+  }
+  else{
+
+    content = (
+      <>
+        <div className='filter-container'>
+          <div className='filter-list'>
+            <button className='filter-btn'>Category <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+            <button className='filter-btn'>Color <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+            <button className='filter-btn'>Price <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+          </div>
+          <button className='filter-btn'>Sort <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+        </div>
+        <div className='item-list-container'>
+          {items.map( (item) => {
+            return (
+              <div key={item._id} className='item-container flex-center-column'>
+                <div className='item-image-container'>
+                  {item.images.map((image,i) => {
+                    return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
+                  })}
+                </div>
+                <div className='item-details-container'>
+                  <div className='item-details'>
+                    <div className='item-detail-header'>
+                      <h5>{item.itemname}</h5>
+                      <h6>{item.brand}</h6>
+                    </div>
+                    <p className='item-price'>₹{item.price} </p>
+                  </div>
+                  <div className='add-to-cart-container'>
+                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item)}>Add to Cart</button>
+                  </div>
+                  
+                </div>
+              </div>
+            )
+          }
+          )}
+        </div>
+      </>
+    )
+
+  }
+  return content
 }
 
 export default ItemList
