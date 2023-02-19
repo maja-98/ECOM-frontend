@@ -54,7 +54,7 @@
 }
 .add-to-cart-container{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .quanity-input{
     width: 40px;
