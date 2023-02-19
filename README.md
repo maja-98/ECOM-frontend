@@ -10,4 +10,5 @@ https://dubai-pardha-palace.netlify.app/
 - [] Apply filtering and sorting logics
 - [] Create UI for Admin opeartions
 - [] Create Authentication and Permissions and Implement
+- [] Mobile and Tablet resposive Site
 - [] Optimize the whole app performance
