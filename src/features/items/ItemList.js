@@ -1,20 +1,24 @@
 import { faCaretDown, faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
+import { useUpdateCartMutation } from '../cart/cartSlice';
 import {useGetItemsQuery} from './itemSlice'
 
 
+
+
 const ItemList = () => {
-  
+  const user = 'ADMIN'
   const {
     data:items,
     isLoading,
     isError,
     error
   } = useGetItemsQuery()
+  const [updateCart] = useUpdateCartMutation()
   
-  const handleAddtoCart = (item) =>{
-    console.log(item.itemname, 'Added to cart')
+  const handleAddtoCart = (itemId,user) =>{
+    updateCart({username:user,itemId})
   }
 
   let content;
@@ -69,9 +73,9 @@ const ItemList = () => {
                     <p className='item-price'>₹{item.price} </p>
                   </div>
                   <div className='add-to-cart-container'>
-                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item)}>
+                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
                       <p className='sm-none'>Add to Cart</p> 
-                      <p className='lg-none'><FontAwesomeIcon  size='md' icon={faCartPlus}/></p>
+                      <p className='lg-none'><FontAwesomeIcon  size='sm' icon={faCartPlus}/></p>
                     </button>
                   </div>
                   

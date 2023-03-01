@@ -7,6 +7,7 @@
 @import url('./footer.css');
 @import url('./banner.css');
 @import url('./itemlist.css');
+@import url('./cart.css');
 :root{
     --SUCCESS-CLR :rgb(53, 202, 177);
     --FAILURE-CLR :rgb(216, 39, 4);
@@ -21,6 +22,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 html{
     width: 100%;
     background-color: white;
@@ -37,6 +39,20 @@ input{
     border-radius: 8px;
     background-color: var(--DEFAULT-BG)
 
+}
+input[type=number]{
+    text-align: center;
+    padding-left: 10px;
+    width: fit-content;
+    border-radius: 100px;
+    background-color: black;
+    color:white;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+
+    opacity: 1;
+   
 }
 
 button{
@@ -56,7 +72,9 @@ button:hover{
     opacity: 0.9;
     border-color: rgba(33, 30, 30, 0.73);
 }
-
+li{
+    list-style: none;
+}
 h1,h2,h3,h4,h5,h6{
     font-family: "Open Sans";
 }
@@ -110,6 +128,25 @@ p{
 .lg-none{
     display: none;
 }
+#root{
+    height: 100vh;
+}
+.App{
+    display: grid;
+    grid-template-rows: 1fr 8fr 1fr;
+    height: 100%;
+    width: 100%;
+    
+}
+.footer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    align-items: flex-end;
+    
+}
+
 @media screen and (max-width:768px) {
 
     input {

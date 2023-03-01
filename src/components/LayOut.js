@@ -8,7 +8,10 @@ const LayOut = () => {
     <>
         <Header/>
         <Outlet/>
-        <Footer/>
+        <div className='footer'>
+          <Footer/>
+        </div>
+        
     </>
         
   )
