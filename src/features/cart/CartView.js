@@ -1,20 +1,80 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faSadTear, faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAddNewOrderMutation } from '../orders/orderSlice'
-import {  useGetCartQuery} from './cartSlice'
+import { useGetUserbyIdQuery } from '../users/userSlice'
+import {  useClearCartMutation, useGetCartQuery} from './cartSlice'
 
 const CartView = () => {
+   const userId = '63ec905b9c1208565a3b4482'
+   const {
+    data:user
+   }  = useGetUserbyIdQuery({userId})
    const  {
-    data:Cart
+    data:Cart,
+    isLoading,
+    isError,
+    error
    } = useGetCartQuery({username:'ADMIN'})
     // const [updateCart] = useUpdateCartMutation()
-    // const [clearCart] = useClearCartMutation()
+    const [clearCart] = useClearCartMutation()
     const [createOrder] = useAddNewOrderMutation()
+    const [shippingAddress1,setShippingAddress1] = useState(' ')
+    const [shippingAddress2,setShippingAddress2] = useState(' ')
+    const [phone,setPhone] = useState(' ')
+    const [email,setEmail] = useState(' ')
+    const [username,setUsername] = useState(' ')
+
+    useEffect(()=>{
+      setUsername(user?.username ?? ' ')
+      setShippingAddress1(user?.addressLine1 ?? ' ')
+      setShippingAddress2(user?.addressLine2 ?? ' ')
+      setPhone(user?.phone ?? ' ')
+      setEmail(user?.email ?? ' ')
+      
+    },[user])
+    const handleCheckOut = ()=>{
+        createOrder({   
+            "items": [
+                {"Id":"63ecb50778a76cc8b5882dc0",
+                "ordQty":24},
+                      {"Id":"63ee37b1fed1c430383cf9fd",
+                "ordQty":2}
+            ],
+            "user": "63ee3e87fed1c430383cfa5d",
+            "shippingName": "MAJAKKA",
+            "shippingAddress1": "KERALA",
+            "shippingAddress2": "INDIA",
+            "shippingPinCode": "58585",
+            "shippingPhone": "78987812325"
+        })
+        clearCart({username:user?.username})}
    
 
-  return (
-    <div className='cart-main-container'>
+    let content;
+    if (isLoading){
+      content = (
+      <div className='no-item-container '>
+          <div className='flex-center-column'>
+            <FontAwesomeIcon icon={faSpinner} spin size='3x'/>
+            <p>Loading...</p>
+          </div>
+        </div>
+        )
+    }
+    else if (isError){
+      content = (
+      <div className='no-item-container '>
+          <div className='flex-center-column'>
+            <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
+            <p>Error</p>
+            <p>{error}</p>
+          </div>
+        </div>
+      )
+    }
+    else{
+      content =  Cart?.items.length > 0 ?    <div className='cart-main-container'>
         
         {/* <button onClick={() => addNewCart({username:'ADMIN'})}> Create Cart</button> */}
         {/* <button onClick={() => clearCart({username:'ADMIN'})}> Clear Cart</button>
@@ -49,48 +109,47 @@ const CartView = () => {
           <h2>Shipping Address</h2>
           <div className='form-input-container'>
             <label htmlFor='name'>Name</label>
-            <input id='name'></input>
+            <input value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
           </div>
           <div className='form-input-container'>
             <label  htmlFor='address1'>Address Line 1</label>
-            <input required id='address1'></input>
+            <input value={shippingAddress1} onChange={(e) =>setShippingAddress1(e.target.value)} required id='address1'></input>
           </div>
           <div className='form-input-container'>
             <label htmlFor='address2'>Address Line 2</label>
-            <input id='address2'></input>
+            <input value={shippingAddress2} onChange={(e) =>setShippingAddress2(e.target.value)} id='address2'></input>
           </div>
           <div className='form-input-container'>
             <label htmlFor='phone'>Phone</label>
-            <input required type={'phone'} id='phone'></input>
+            <input value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
           </div>
           <div className='form-input-container'>
             <label htmlFor='email'>Email</label>
-            <input type={'email'} id='email'></input>
+            <input value={email} onChange={(e) =>setEmail(e.target.value)} type={'email'} id='email'></input>
           </div>
           <div className='cart-btns'>
-            <button className='clear-cart-button' >Clear Cart</button>
+            <button className='clear-cart-button' onClick={()=>clearCart({username:user?.username})} >Clear Cart</button>
 
-            <button className='checkout-button' onClick={() => createOrder({   
-            "items": [
-                {"Id":"63ecb50778a76cc8b5882dc0",
-                "ordQty":24},
-                      {"Id":"63ee37b1fed1c430383cf9fd",
-                "ordQty":2}
-            ],
-            "user": "63ee3e87fed1c430383cfa5d",
-            "shippingName": "MAJAKKA",
-            "shippingAddress1": "KERALA",
-            "shippingAddress2": "INDIA",
-            "shippingPinCode": "58585",
-            "shippingPhone": "78987812325"
-        })}>CheckOut</button>
+            <button className='checkout-button' onClick={handleCheckOut}>CheckOut</button>
           </div>
 
 
         </div>
 
-    </div>
+    </div> : (
+      <div className='no-item-container '>
+          <div className='flex-center-column'>
+            <FontAwesomeIcon icon={faSadTear}  size='3x'/>
+            <p>No Items to Checkout</p>
+          </div>
+        </div>
+        )
+    }
+   
+
+  return (
+    content
   )
-}
+  }
 
 export default CartView

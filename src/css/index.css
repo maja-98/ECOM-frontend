@@ -45,7 +45,7 @@ input[type=number]{
     padding-left: 10px;
     width: fit-content;
     border-radius: 100px;
-    background-color: black;
+    background-color: rgb(147, 109, 109);
     color:white;
 }
 input[type=number]::-webkit-inner-spin-button,

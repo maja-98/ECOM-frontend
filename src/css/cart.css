@@ -3,6 +3,7 @@
     padding-right: var(--DEFAULT-CONTAINER-PADDING);
     display: grid;
     grid-template-columns: repeat(2,1fr);
+
 }
 .cart-items{
     display: grid;
@@ -19,12 +20,19 @@
 .shipping-form{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     padding-left: 20px;
     padding-right: 100px;
 }
+.cart-items-container{
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 20px;
+}
 .shipping-form >h2,.cart-items-container>h2{
     margin-bottom: 30px;
+    padding: 5px;
     text-align: center;
     background-color: rgb(44, 38, 30);
     color: aliceblue;
@@ -38,7 +46,10 @@
 .shipping-form >div{
     display: flex;
     justify-content: space-between;
-    padding-left: 10px;
+    padding-left: 20px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 500;
+    align-items: center;
 }
 .cart-item-delete-button{
     width: 30px;
