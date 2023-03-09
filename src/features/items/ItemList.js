@@ -1,6 +1,7 @@
 import { faCaretDown, faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react'
+import React, { useState } from 'react'
+import PopUp from '../../components/PopUp';
 import { useUpdateCartMutation } from '../cart/cartSlice';
 import {useGetItemsQuery} from './itemSlice'
 
@@ -9,6 +10,22 @@ import {useGetItemsQuery} from './itemSlice'
 
 const ItemList = () => {
   const user = 'ADMIN'
+  const [popup,setPopUp] = useState(false)
+  const [message,setMessage] = useState('This is a Test Message')
+  const [heading,setHeading] = useState('This is Heading')
+  const [type,setType] = useState('')
+  const handleTogglePopUp = () =>{
+    setPopUp((prevState) => !prevState)
+    if (type==='notification'){
+      setType('')
+    }
+
+  }
+  const handlePopUpContent = (type,message,heading) => {
+      setType(type)
+      setHeading(heading)
+      setMessage(message)
+  }
   const {
     data:items,
     isLoading,
@@ -17,8 +34,13 @@ const ItemList = () => {
   } = useGetItemsQuery()
   const [updateCart] = useUpdateCartMutation()
   
-  const handleAddtoCart = (itemId,user) =>{
-    updateCart({username:user,itemId})
+  const handleAddtoCart = async(itemId,user) =>{
+    const result = await updateCart({username:user,itemId})
+   
+    if (result?.data?.message!==undefined){
+        handlePopUpContent('notification','Item Added to Cart','')
+        handleTogglePopUp()
+    }
   }
 
   let content;
@@ -85,6 +107,7 @@ const ItemList = () => {
           }
           )}
         </div>
+        {popup && <PopUp type={type} message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
       </>
     )
 

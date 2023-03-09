@@ -1,9 +1,9 @@
-import { faSadTear, faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faHourglass, faSadTear, faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { useAddNewOrderMutation } from '../orders/orderSlice'
 import { useGetUserbyIdQuery } from '../users/userSlice'
-import {  useClearCartMutation, useGetCartQuery} from './cartSlice'
+import {  useClearCartMutation, useGetCartQuery, useUpdateCartMutation} from './cartSlice'
 
 const CartView = () => {
    const userId = '63ec905b9c1208565a3b4482'
@@ -16,15 +16,19 @@ const CartView = () => {
     isError,
     error
    } = useGetCartQuery({username:'ADMIN'})
-    // const [updateCart] = useUpdateCartMutation()
+   console.log(Cart?.items)
     const [clearCart] = useClearCartMutation()
-    const [createOrder] = useAddNewOrderMutation()
+    const [createOrder,{isLoading:isCreateOrderLoading}] = useAddNewOrderMutation()
+    const [updateCart, {
+        isLoading: isUpdateCartLoading
+    }] = useUpdateCartMutation()
     const [shippingAddress1,setShippingAddress1] = useState(' ')
     const [shippingAddress2,setShippingAddress2] = useState(' ')
     const [phone,setPhone] = useState(' ')
     const [email,setEmail] = useState(' ')
     const [username,setUsername] = useState(' ')
-
+    const [pincode,setPincode] = useState(' ')
+    const [totalPrice,setTotalPrice] = useState(0)
     useEffect(()=>{
       setUsername(user?.username ?? ' ')
       setShippingAddress1(user?.addressLine1 ?? ' ')
@@ -33,23 +37,41 @@ const CartView = () => {
       setEmail(user?.email ?? ' ')
       
     },[user])
+    useEffect (()=>{
+      console.log(Cart?.itemObjects)
+      if (Cart?.itemObjects?.length){
+        const totalPriceNew =  Array.from(Cart?.itemObjects)?.reduce((total,value)=>{
+            
+                    return {...total,itemname:'Total',cartQuantity:1,price:total?.price*total?.cartQuantity+value?.price*value?.cartQuantity}
+                  }).price
+        console.log(totalPriceNew)
+        setTotalPrice(totalPriceNew)
+      }
+
+    },[Cart])
+    const handleUpdateQuantity = async({itemId,newQuantity}) => {
+      const status = await updateCart({username:user?.username,itemId,newQuantity})
+      if (status?.error){
+        
+      }
+    }
+    
     const handleCheckOut = ()=>{
+        
         createOrder({   
-            "items": [
-                {"Id":"63ecb50778a76cc8b5882dc0",
-                "ordQty":24},
-                      {"Id":"63ee37b1fed1c430383cf9fd",
-                "ordQty":2}
-            ],
-            "user": "63ee3e87fed1c430383cfa5d",
-            "shippingName": "MAJAKKA",
-            "shippingAddress1": "KERALA",
-            "shippingAddress2": "INDIA",
-            "shippingPinCode": "58585",
-            "shippingPhone": "78987812325"
+
+            "items": Cart?.itemObjects?.map(item=>{return {"id":item._id, "ordQty":item.cartQuantity}}),
+            "user": userId,
+            "shippingName": username,
+            "shippingAddress1": shippingAddress1,
+            "shippingAddress2": shippingAddress2,
+            "shippingPinCode": pincode,
+            "shippingPhone": phone,
+            "shippingEmail":email,
+            totalPrice
         })
-        clearCart({username:user?.username})}
-   
+        clearCart({username:user?.username})
+    }
 
     let content;
     if (isLoading){
@@ -92,18 +114,27 @@ const CartView = () => {
                 </div>
                 <div >
                   <h4>{item.itemname}</h4>
+                  <p>{item.price}₹ </p>
                 </div>
                 <div className='cart-quantity-controller' >
 
-                  <input type={'number'} defaultValue={item.cartQuantity} min='1' max={item.inventory}></input>
+                  <input type={'number'} defaultValue={item.cartQuantity} 
+                  onChange={(e)=>e.target.value>item.inventory? e.target.value=item.inventory:e.target.value}
+                    min='1' max={item.inventory} 
+                    onBlur={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:e.target.value})}>
+                    
+                    </input>
                 </div>
                 <div className='cart-image-container'>
-                  <button  className='cart-item-delete-button'>{<FontAwesomeIcon icon={faTrash}/>}</button>
+                  <button  onClick={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:0})} className='cart-item-delete-button'>{<FontAwesomeIcon icon={faTrash}/>}</button>
                 </div>
               </li>
             )
           }) 
           }
+          <div>
+            
+          </div>
         </div>
         <div className='shipping-form'>
           <h2>Shipping Address</h2>
@@ -120,6 +151,10 @@ const CartView = () => {
             <input value={shippingAddress2} onChange={(e) =>setShippingAddress2(e.target.value)} id='address2'></input>
           </div>
           <div className='form-input-container'>
+            <label htmlFor='pincode'>Pin Code</label>
+            <input value={pincode} onChange={(e) =>setPincode(e.target.value)} id='pincode'></input>
+          </div>
+          <div className='form-input-container'>
             <label htmlFor='phone'>Phone</label>
             <input value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
           </div>
@@ -130,10 +165,13 @@ const CartView = () => {
           <div className='cart-btns'>
             <button className='clear-cart-button' onClick={()=>clearCart({username:user?.username})} >Clear Cart</button>
 
-            <button className='checkout-button' onClick={handleCheckOut}>CheckOut</button>
+            <button className='checkout-button' disabled={isUpdateCartLoading} onClick={handleCheckOut}>{(!isUpdateCartLoading||!isCreateOrderLoading) ? 'CheckOut':<FontAwesomeIcon icon={faHourglass}/>}</button>
           </div>
 
 
+        </div>
+        <div>
+           {<p>Total: {totalPrice}₹</p>}
         </div>
 
     </div> : (
