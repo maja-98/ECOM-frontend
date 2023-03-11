@@ -9,6 +9,7 @@
 @import url('./itemlist.css');
 @import url('./cart.css');
 @import url('./popup.css');
+@import url('./orders.css');
 :root{
     --SUCCESS-CLR :rgb(53, 202, 177);
     --FAILURE-CLR :rgb(216, 39, 4);

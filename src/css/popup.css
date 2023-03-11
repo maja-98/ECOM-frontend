@@ -12,4 +12,6 @@
     position: fixed;
     bottom: 100px;
     left: 700px;
+    background-color: black;
+    color: white;
 }

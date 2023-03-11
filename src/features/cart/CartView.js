@@ -16,7 +16,6 @@ const CartView = () => {
     isError,
     error
    } = useGetCartQuery({username:'ADMIN'})
-   console.log(Cart?.items)
     const [clearCart] = useClearCartMutation()
     const [createOrder,{isLoading:isCreateOrderLoading}] = useAddNewOrderMutation()
     const [updateCart, {
@@ -98,9 +97,6 @@ const CartView = () => {
     else{
       content =  Cart?.items.length > 0 ?    <div className='cart-main-container'>
         
-        {/* <button onClick={() => addNewCart({username:'ADMIN'})}> Create Cart</button> */}
-        {/* <button onClick={() => clearCart({username:'ADMIN'})}> Clear Cart</button>
-        <button onClick={() => updateCart({username:'ADMIN',itemId:1001,newQuantity:4})}> Update Cart</button> */}
         <div className='cart-items-container'>
           <h2>Cart</h2>
           {Cart?.itemObjects?.map(item =>{
@@ -140,11 +136,13 @@ const CartView = () => {
           <h2>Shipping Address</h2>
           <div className='form-input-container'>
             <label htmlFor='name'>Name</label>
-            <input value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
+            <input className={!username.trim()===false?'no-error':'error-validation'} value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
+            {!username.trim()===true && <small className='error-message'>Username required</small>}
           </div>
           <div className='form-input-container'>
             <label  htmlFor='address1'>Address Line 1</label>
-            <input value={shippingAddress1} onChange={(e) =>setShippingAddress1(e.target.value)} required id='address1'></input>
+            <input className={!shippingAddress1.trim()===false?'no-error':'error-validation'}  value={shippingAddress1} onChange={(e) =>setShippingAddress1(e.target.value)} required id='address1'></input>
+            {!shippingAddress1.trim()===true && <small className='error-message'>Address Line 1 required</small>}
           </div>
           <div className='form-input-container'>
             <label htmlFor='address2'>Address Line 2</label>
@@ -152,11 +150,13 @@ const CartView = () => {
           </div>
           <div className='form-input-container'>
             <label htmlFor='pincode'>Pin Code</label>
-            <input value={pincode} onChange={(e) =>setPincode(e.target.value)} id='pincode'></input>
+            <input className={(isNaN(pincode)||!pincode.trim()===false )?'no-error':'error-validation'} value={pincode} onChange={(e) =>setPincode(e.target.value)} required id='pincode'></input>
+            {(isNaN(pincode)||!pincode.trim()===true )&& <small className='error-message'>Numeric Pincode number required</small>}
           </div>
           <div className='form-input-container'>
             <label htmlFor='phone'>Phone</label>
-            <input value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
+            <input  className={(isNaN(phone)||!phone.trim()===false)?'no-error':'error-validation'} value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
+            {(isNaN(phone)||!phone.trim()===true) && <small className='error-message'>Numeric Phone number required</small>}
           </div>
           <div className='form-input-container'>
             <label htmlFor='email'>Email</label>
@@ -165,7 +165,7 @@ const CartView = () => {
           <div className='cart-btns'>
             <button className='clear-cart-button' onClick={()=>clearCart({username:user?.username})} >Clear Cart</button>
 
-            <button className='checkout-button' disabled={isUpdateCartLoading} onClick={handleCheckOut}>{(!isUpdateCartLoading||!isCreateOrderLoading) ? 'CheckOut':<FontAwesomeIcon icon={faHourglass}/>}</button>
+            <button className='checkout-button' disabled={!shippingAddress1.trim()||!phone.trim()||!username.trim()||!pincode.trim()} onClick={handleCheckOut}>{(!isUpdateCartLoading||!isCreateOrderLoading) ? 'CheckOut':<FontAwesomeIcon icon={faHourglass}/>}</button>
           </div>
 
 

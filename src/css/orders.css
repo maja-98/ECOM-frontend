@@ -1,0 +1,92 @@
+.order-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.order-container>h2{
+    margin-bottom: 10px;
+        padding: 5px;
+        text-align: center;
+        background-color: rgb(44, 38, 30);
+        color: aliceblue;
+        border-radius: 20px;
+        width: 50%;
+}
+.single-order-container{
+    display: grid;
+    grid-template-columns: 2fr 2fr 3fr 1fr;
+    width: 600px;
+    border: 1px solid black;
+    padding: 20px;
+    align-items: center;
+    background-color: rgba(166, 166, 166, 0.604);
+}
+.single-order-container>h3{
+    font-size: 15px;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif
+}
+.single-order-container>p,.order-items-container>p{
+    font-size: 13px;
+    text-align: left;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+}
+.single-order-container>p{
+    text-align: center;
+}
+.order-details-container{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    
+}
+.order-items-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+.order-totalprice-container{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    align-items: center;
+    
+}
+.order-totalprice-container>h4{
+    font-size: 15px;
+   
+        font-family: 'Times New Roman', Times, serif
+}
+.order-ship-address-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 4px;
+    position: fixed;
+    top:230px;
+    right: 200px;
+    padding: 20px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+
+  
+}
+.order-ship-address-container>p{
+    font-size: 13px;
+    text-align:left;
+    gap:5px;
+    
+    
+
+}
+.order-ship-address-container>h6{
+    font-size: 14px;
+    text-decoration: underline;
+    padding-bottom: 4px;
+    
+}

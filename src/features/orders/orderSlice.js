@@ -4,6 +4,20 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getOrders : builder.query({
             query: () => '/orders',
+            transformResponse: responseData => {
+                const transformedData = responseData.sort((a,b)=>{
+                    const dateB = new Date(b.createdAt)
+                    const dateA = new Date(a.createdAt)                   
+                    if (a.status === "placed" && b.status !== "placed") {
+                        return -1; 
+                    } else if (a.status !== "placed" && b.status === "placed") {
+                        return 1; 
+                    } else  {
+                        return dateA - dateB; 
+                    } 
+                    });
+                return transformedData
+            },
             providesTags : (result,error,arg) =>{ 
                 return [
                 {type:'Order',id:'LIST'},...result.map(order=>({type:'Order',id:order._id}))
@@ -16,6 +30,14 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 url: `/orders/${arg.userId}`,
                 method:'GET',
             }},
+            transformResponse: responseData => {
+                const transformedData = (responseData.sort((a,b)=>{
+                    const dateB = new Date(b.createdAt)
+                    const dateA = new Date(a.createdAt)
+                    return dateB-dateA
+                }))
+                return transformedData
+            },
             providesTags : (result,error,arg) =>{ 
                 return [
                 {...result?.map(order=>({type:'Order',id:order._id}))}
