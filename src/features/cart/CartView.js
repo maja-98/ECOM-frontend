@@ -108,7 +108,7 @@ const CartView = () => {
                   })}
                   
                 </div>
-                <div >
+                <div className='cart-items-price-container'>
                   <h4>{item.itemname}</h4>
                   <p>{item.price}₹ </p>
                 </div>

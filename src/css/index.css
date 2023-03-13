@@ -159,6 +159,16 @@ p{
         padding-left: 20px;
         font-size: 10px;
     }
+    input[type=number] {
+        text-align: center;
+        padding: 0px;
+        max-width: 40px;
+        border-radius: 100px;
+
+    }
+    label{
+        font-size: 12px;
+    }
     h1{
         font-size: medium;
     }

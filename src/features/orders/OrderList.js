@@ -11,7 +11,14 @@ const OrderList = () => {
         isLoading
     } = useGetOrderbyUserIdQuery({userId})
   const handleDisplayOrderDetails =(val)=>{
-    setDisplayOrderDetails(val)
+    setDisplayOrderDetails(prev =>{
+      if (prev===val){
+        return ''
+      }
+      else{
+        return val
+      }
+    })
   }
   const dateFormatter  = (date) =>{
     const newDate = new Date(date).toLocaleString()
@@ -48,14 +55,14 @@ const OrderList = () => {
                   <h3>OrderID: {order.orderId}</h3>
                   <p>{order.status}</p>
                   <p>{ dateFormatter( order.createdAt)}</p>
-                  <FontAwesomeIcon onClick={()=>handleDisplayOrderDetails(order.orderId)} icon={faCaretDown}/>
+                  <FontAwesomeIcon onClick={()=>handleDisplayOrderDetails(order.orderId)} icon={displayOrderDetails===order.orderId? faCaretUp:faCaretDown }/>
                   
               </div>
               {displayOrderDetails===order.orderId &&<div className='order-details-container'>
                 <div className='order-totalprice-container'>
                   <h4>Total Price: {order.totalPrice}₹</h4>
   
-                  <FontAwesomeIcon  onClick={()=>handleDisplayOrderDetails('')} icon={faCaretUp}/>
+                  
                 </div>
                     <div  className='order-items-container'>
                                                       <p >Item </p>
