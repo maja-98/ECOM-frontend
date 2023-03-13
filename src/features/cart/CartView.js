@@ -21,19 +21,19 @@ const CartView = () => {
     const [updateCart, {
         isLoading: isUpdateCartLoading
     }] = useUpdateCartMutation()
-    const [shippingAddress1,setShippingAddress1] = useState(' ')
-    const [shippingAddress2,setShippingAddress2] = useState(' ')
-    const [phone,setPhone] = useState(' ')
-    const [email,setEmail] = useState(' ')
-    const [username,setUsername] = useState(' ')
-    const [pincode,setPincode] = useState(' ')
+    const [shippingAddress1,setShippingAddress1] = useState('')
+    const [shippingAddress2,setShippingAddress2] = useState('')
+    const [phone,setPhone] = useState('')
+    const [email,setEmail] = useState('')
+    const [username,setUsername] = useState('')
+    const [pincode,setPincode] = useState('')
     const [totalPrice,setTotalPrice] = useState(0)
     useEffect(()=>{
-      setUsername(user?.username ?? ' ')
-      setShippingAddress1(user?.addressLine1 ?? ' ')
-      setShippingAddress2(user?.addressLine2 ?? ' ')
-      setPhone(user?.phone ?? ' ')
-      setEmail(user?.email ?? ' ')
+      setUsername(user?.username ?? '')
+      setShippingAddress1(user?.addressLine1 ?? '')
+      setShippingAddress2(user?.addressLine2 ?? '')
+      setPhone(user?.phone ?? '')
+      setEmail(user?.email ?? '')
       
     },[user])
     useEffect (()=>{
@@ -129,6 +129,9 @@ const CartView = () => {
           }) 
           }
           <div>
+                    <div className='total-price-cart-container'>
+           {<p>Total: {totalPrice}₹</p>}
+        </div>
             
           </div>
         </div>
@@ -150,7 +153,7 @@ const CartView = () => {
           </div>
           <div className='form-input-container'>
             <label htmlFor='pincode'>Pin Code</label>
-            <input className={(isNaN(pincode)||!pincode.trim()===false )?'no-error':'error-validation'} value={pincode} onChange={(e) =>setPincode(e.target.value)} required id='pincode'></input>
+            <input className={((isNaN(pincode)===true)||(!pincode.trim() ))===false?'no-error':'error-validation'} value={pincode} onChange={(e) =>setPincode(e.target.value)} required id='pincode'></input>
             {(isNaN(pincode)||!pincode.trim()===true )&& <small className='error-message'>Numeric Pincode number required</small>}
           </div>
           <div className='form-input-container'>
@@ -170,9 +173,7 @@ const CartView = () => {
 
 
         </div>
-        <div>
-           {<p>Total: {totalPrice}₹</p>}
-        </div>
+
 
     </div> : (
       <div className='no-item-container '>

@@ -90,6 +90,20 @@
 .error-validation{
     border: solid 1px red;
 }
+.total-price-cart-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+}
+.total-price-cart-container>p{
+        background-color: rgb(0, 151, 162);
+        width: 50%;
+        text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+}
 @media screen and (max-width:768px) {
     .cart-main-container {
         padding-left: 10px;
