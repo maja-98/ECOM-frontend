@@ -18,19 +18,16 @@
     --SMALL-CONTAINER-PADDING: 20px;
     --DEFAULT-BG:rgba(243, 243, 243, 0.884);
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 html{
     width: 100%;
     background-color: white;
     margin: 0px;
 }
-
 input{
     width: 350px;
     height: 40px;
@@ -40,7 +37,6 @@ input{
     outline: 0px;
     border-radius: 8px;
     background-color: var(--DEFAULT-BG)
-
 }
 input[type=number]{
     text-align: center;
@@ -52,10 +48,8 @@ input[type=number]{
 }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-
     display: none;
 }
-
 button{
     border: 0.5px solid black;
     border-radius: 5px;
@@ -67,7 +61,6 @@ button{
     border-color: black;
     color: black;
     background-color: white;
-
 }
 button:hover{
     opacity: 0.9;
@@ -94,7 +87,6 @@ p{
 .btn-neutral{
     background-color: var(--NEUTRAL-CLR);
 }
-
 .grid-row-3{
     display: grid;
     height: 100%;
@@ -122,7 +114,6 @@ p{
     align-items: center;
     gap: 10px;
 }
-
 .g-20{
     gap: 20px;
 }
@@ -151,7 +142,6 @@ p{
     color: grey;
 }
 @media screen and (max-width:768px) {
-
     input {
         width: 150px;
         height: 40px;
@@ -164,7 +154,6 @@ p{
         padding: 0px;
         max-width: 40px;
         border-radius: 100px;
-
     }
     label{
         font-size: 12px;
@@ -191,5 +180,4 @@ p{
     .lg-none{
         display: flex;
     }
-
 }

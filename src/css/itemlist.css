@@ -42,7 +42,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 .item-image{
     border-radius: 5px;;
@@ -88,13 +87,11 @@
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 15px;
-
 }
 .filter-btn:hover{
     color:white;
     background-color: black;
 }
-
 @media screen and (max-width:768px) {
     .filter-container {
             padding-left: var(--SMALL-CONTAINER-PADDING);
@@ -107,16 +104,13 @@
         padding-left: 6px;
         padding-right: 6px;
         border-radius: 15px;
-
     }
     .item-list-container {
-
         grid-template-columns: repeat(3, 25vw);
         padding-left: var(--SMALL-CONTAINER-PADDING);
         padding-right: var(--SMALL-CONTAINER-PADDING);
         padding-top: 20px;
         gap: 20px;
-
     }
     .item-details-container {
         gap: 4px;
@@ -141,7 +135,5 @@
         align-items: center;
         justify-content: center;
     }
-
-
 
 }

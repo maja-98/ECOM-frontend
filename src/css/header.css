@@ -47,9 +47,7 @@
     display: none;
 }
 .nav-links{
-
     gap: 10px;
-
 }
 .nav-links>h4,.cart-btn,.logo{
     cursor: pointer;
@@ -60,7 +58,6 @@
             padding-left: 25px;
             padding-right: 25px;
             height: 100px;
-
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,7 +68,6 @@
         .sm-none{
             display: none;
         }
-
 }
 @media screen and (max-height:400px) {
 }
