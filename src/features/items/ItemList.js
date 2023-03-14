@@ -2,6 +2,7 @@ import { faCaretDown, faCartPlus, faSpinner, faTriangleExclamation } from '@fort
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import PopUp from '../../components/PopUp';
+import useAuth from '../../hooks/useAuth';
 import { useUpdateCartMutation } from '../cart/cartSlice';
 import {useGetItemsQuery} from './itemSlice'
 
@@ -9,7 +10,7 @@ import {useGetItemsQuery} from './itemSlice'
 
 
 const ItemList = () => {
-  const user = 'ADMIN'
+  const {username:user} = useAuth()
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('This is a Test Message')
   const [heading,setHeading] = useState('This is Heading')

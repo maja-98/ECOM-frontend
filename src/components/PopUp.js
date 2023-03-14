@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 const PopUp = ({type,heading,message,handleTogglePopUp}) => {
-  console.log(type)
+  
   useEffect(()=>{
     if(type==='notification'){
       setTimeout(()=>{

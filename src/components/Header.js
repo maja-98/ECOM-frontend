@@ -2,10 +2,16 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faChevronDown, faChevronUp, faMagnifyingGlass, faRectangleList, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import Login from './Login'
+import useAuth from '../hooks/useAuth'
+
 
 const Header = () => {
+  const [loginView,setloginView] = useState(false)
   const navigate = useNavigate()
   const [categoryListShow,setCategoryListShow] = useState(false)
+  const handleLoginView = ()=>setloginView(prevState=> !prevState)
+  const {username} = useAuth()
   return (
     <div className='header-container'>
       <h1 className='logo' onClick={()=>navigate('/')}>Dubai Pardhas</h1>
@@ -33,9 +39,9 @@ const Header = () => {
         <FontAwesomeIcon icon={faRectangleList} size='lg' />
       </div>
   
-      <div className='flex-center-row pointer'>
+      <div onClick={handleLoginView}  className='flex-center-row pointer'>
         <FontAwesomeIcon icon={faUser} size='lg' />
-        <h4 className='sm-none'>Account</h4>
+        <h4 className='sm-none'>{username ? username:'Login'}</h4>
       </div>
 
 
@@ -44,7 +50,7 @@ const Header = () => {
         <h4 className='sm-none'>Cart</h4>
       </div>
       
-
+      {loginView && <Login handleLoginView={handleLoginView}/>}
 
     </div>
   )

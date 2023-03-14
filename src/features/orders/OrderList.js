@@ -1,14 +1,17 @@
-import { faCaretDown, faCaretUp, faSadTear, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faCaretUp, faSadTear, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+import useAuth from '../../hooks/useAuth'
 import { useGetOrderbyUserIdQuery } from './orderSlice'
 
 const OrderList = () => {
   const [displayOrderDetails,setDisplayOrderDetails] = useState('')
-  const userId = '63ec905b9c1208565a3b4482'
+  const {userId} = useAuth()
     const {
         data:Orders,
-        isLoading
+        isLoading,
+        isError,
+        error
     } = useGetOrderbyUserIdQuery({userId})
   const handleDisplayOrderDetails =(val)=>{
     setDisplayOrderDetails(prev =>{
@@ -35,6 +38,17 @@ const OrderList = () => {
         </div>
         )
   }
+  else if (isError){
+      content = (
+      <div className='no-item-container '>
+          <div className='flex-center-column'>
+            <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
+            <p>Error</p>
+            <p>{error.data.message}</p>
+          </div>
+        </div>
+      )
+    }
   else{
     if (Orders?.length===0){
       content = (

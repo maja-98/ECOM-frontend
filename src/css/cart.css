@@ -11,7 +11,7 @@
     width: 100%;
     margin: 10px;
     border-radius: 20px;
-    background-color: rgb(255, 246, 246);
+    background-color: #E1F4F3;
 }
 .cart-image-container>img{
     width: 140px;
@@ -97,7 +97,7 @@
     color: white;
 }
 .total-price-cart-container>p{
-        background-color: rgb(0, 151, 162);
+        background-color: #706C61;
         width: 50%;
         text-align: center;
             padding: 5px;

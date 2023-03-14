@@ -11,6 +11,7 @@ export const extendedUserApiSlice  = apiSlice.injectEndpoints({
         }),
         getUserbyId : builder.query({
             query: (arg) => {
+                
                 return {
                 url: `/users/${arg.userId}`,
                 method:'GET',

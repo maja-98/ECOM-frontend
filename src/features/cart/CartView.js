@@ -1,12 +1,14 @@
 import { faHourglass, faSadTear, faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
+import useAuth from '../../hooks/useAuth'
 import { useAddNewOrderMutation } from '../orders/orderSlice'
 import { useGetUserbyIdQuery } from '../users/userSlice'
 import {  useClearCartMutation, useGetCartQuery, useUpdateCartMutation} from './cartSlice'
 
 const CartView = () => {
-   const userId = '63ec905b9c1208565a3b4482'
+   const {userId,username:usernameFromAuth} = useAuth()
+   
    const {
     data:user
    }  = useGetUserbyIdQuery({userId})
@@ -15,7 +17,8 @@ const CartView = () => {
     isLoading,
     isError,
     error
-   } = useGetCartQuery({username:'ADMIN'})
+   } = useGetCartQuery({username:usernameFromAuth})
+
     const [clearCart] = useClearCartMutation()
     const [createOrder,{isLoading:isCreateOrderLoading}] = useAddNewOrderMutation()
     const [updateCart, {
@@ -37,13 +40,13 @@ const CartView = () => {
       
     },[user])
     useEffect (()=>{
-      console.log(Cart?.itemObjects)
+      
       if (Cart?.itemObjects?.length){
         const totalPriceNew =  Array.from(Cart?.itemObjects)?.reduce((total,value)=>{
             
                     return {...total,itemname:'Total',cartQuantity:1,price:total?.price*total?.cartQuantity+value?.price*value?.cartQuantity}
                   }).price
-        console.log(totalPriceNew)
+        
         setTotalPrice(totalPriceNew)
       }
 
@@ -89,7 +92,7 @@ const CartView = () => {
           <div className='flex-center-column'>
             <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
             <p>Error</p>
-            <p>{error}</p>
+            <p>{error.data.message}</p>
           </div>
         </div>
       )

@@ -19,7 +19,7 @@
     border: 1px solid rgb(255, 255, 255);
     padding: 20px;
     align-items: center;
-    background-color: rgb(251, 225, 225);
+    background-color: var(--SECONDARY-CLR);
     border-radius: 15px;
 }
 .single-order-container>h3{

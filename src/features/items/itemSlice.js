@@ -12,7 +12,7 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
 
         getItemsbyItemId : builder.query({
             query: (arg) => {
-                console.log(arg.itemId)
+                
                 return {
                 url: `/items/${arg.itemId}`,
                 method:'GET',
@@ -21,7 +21,7 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
         }),
         getItemsbyCategory : builder.query({
             query: (arg) => {
-                console.log(arg.category)
+                
                 return {
                 url: `/items/category/${arg.category}`,
                 method:'GET',

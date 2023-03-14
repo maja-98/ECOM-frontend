@@ -25,7 +25,7 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
         }),
         getOrderbyUserId : builder.query({
             query: (arg) => {
-                console.log(arg)
+                
                 return {
                 url: `/orders/${arg.userId}`,
                 method:'GET',
