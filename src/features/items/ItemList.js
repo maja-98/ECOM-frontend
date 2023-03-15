@@ -14,16 +14,10 @@ const ItemList = () => {
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('This is a Test Message')
   const [heading,setHeading] = useState('This is Heading')
-  const [type,setType] = useState('')
   const handleTogglePopUp = () =>{
     setPopUp((prevState) => !prevState)
-    if (type==='notification'){
-      setType('')
-    }
-
   }
-  const handlePopUpContent = (type,message,heading) => {
-      setType(type)
+  const handlePopUpContent = (message,heading) => {
       setHeading(heading)
       setMessage(message)
   }
@@ -108,7 +102,7 @@ const ItemList = () => {
           }
           )}
         </div>
-        {popup && <PopUp type={type} message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
+        {popup && <PopUp  message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
       </>
     )
 

@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.501);
+    background-color: rgb(255, 255, 255);
     top: 0px;
     left: 0px;
     margin: 0px;
@@ -12,4 +12,68 @@
     justify-content: center;
     align-items: center;
     color: white;
+}
+.login-label{
+    color: black;
+}
+.login-input{
+    box-shadow: -3px 3px 1px 0px rgba(0, 0, 0, 0.29);
+    width: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding: 7px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.login-form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.347);
+    border-radius: 10px;
+    padding: 20px 50px 50px 50px;
+    background-color: var(--SECONDARY-CLR);
+}
+.logout-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.347);
+    border-radius: 10px;
+    padding: 50px 50px 50px 50px;
+    background-color: var(--SECONDARY-CLR);
+}
+.login-form>h1{
+    color: black;
+    font-family:'Lora';
+    margin-bottom:20px;
+}
+.login-page-close-button{
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    width: 30px;
+    border-radius: 8px;
+    padding: 0px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.912);
+    color: aliceblue;
+}
+.login-page-close-button:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.login-button{
+    box-shadow: -3px 3px 1px 0px rgba(0, 0, 0, 0.29);
+    border: none;
+    border-radius: 20px;
+}
+.login-button:hover{
+    background-color: black;
+    color: aliceblue;
+}
+.signup-input{
+    width: 300px;
+    border-radius: 50px;
 }

@@ -1,33 +1,23 @@
-import React, { useEffect } from 'react'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
-const PopUp = ({type,heading,message,handleTogglePopUp}) => {
+const PopUp = ({heading,message,handleTogglePopUp}) => {
   
-  useEffect(()=>{
-    if(type==='notification'){
-      setTimeout(()=>{
-        handleTogglePopUp()
-      },3000)
-    }
-  },[type,handleTogglePopUp])
-  let content;
-  if (type==='overlay'){
+
     
-        content = <div className='popup-overlay'>
-            <div className='overlay-message-container'>
-              <h1 className='overlay-message-head'>{heading}</h1>
-              <div className='overlay-message-content-container'>
-                <p className='overlay-message-content'>{message}</p>
-                <button onClick={handleTogglePopUp} className='overlay-close-button'>Close</button>
-              </div>
-              
-            </div>
+  let content = <div className='popup-overlay'>
+      <div className='overlay-message-container'>
+        <h1 className='overlay-message-head'>{heading}</h1>
+        <div className='overlay-message-content-container'>
+          <p className='overlay-message-content'>{message}</p>
+          <button onClick={handleTogglePopUp} className='login-page-close-button'><FontAwesomeIcon size='2x'  icon={faClose}/></button>
         </div>
-  }
-  else if (type==='notification'){
-    content = <div className='notification-container'>
-        <p>{message}</p>
-    </div>
-  }
+        
+      </div>
+  </div>
+  
+
   return (
     content
   )
