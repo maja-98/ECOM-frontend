@@ -1,7 +1,7 @@
 import {createApi,fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../auth/authSlice'
 const env = (process.env.REACT_APP_ENVIRONMENT)
-const baseUrl = env==='PROD' ? 'https://dubai-pardha-palace.onrender.com/api': "http://localhost:3500/api"
+const baseUrl = env==='PROD' ? 'http://3.7.156.255/api/': "http://localhost:3500/api"
 
 const baseQuery = fetchBaseQuery({
     baseUrl,
