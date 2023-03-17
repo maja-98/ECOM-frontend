@@ -1,9 +1,12 @@
-import { faCaretDown, faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React, { useEffect,  useState } from 'react'
+import { useSelector } from 'react-redux';
 import PopUp from '../../components/PopUp';
 import useAuth from '../../hooks/useAuth';
 import { useUpdateCartMutation } from '../cart/cartSlice';
+import ItemFilter from './ItemFilter';
+import { selectSearchCategory, selectSearchValue,selectSearchColor, selectSearchPrice, selectSort } from './itemSearchSlice';
 import {useGetItemsQuery} from './itemSlice'
 
 
@@ -14,6 +17,13 @@ const ItemList = () => {
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('This is a Test Message')
   const [heading,setHeading] = useState('This is Heading')
+  const [items,setItems] = useState([])
+  const searchValue = useSelector(selectSearchValue)
+  const searchCategory = useSelector(selectSearchCategory)
+  const searchColor = useSelector(selectSearchColor)
+  const searchPrice = useSelector(selectSearchPrice)
+  const sort = useSelector(selectSort)
+
   const handleTogglePopUp = () =>{
     setPopUp((prevState) => !prevState)
   }
@@ -22,13 +32,32 @@ const ItemList = () => {
       setMessage(message)
   }
   const {
-    data:items,
+    data:InitalItems,
     isLoading,
     isError,
     error
   } = useGetItemsQuery()
   const [updateCart] = useUpdateCartMutation()
+
   
+  useEffect(()=>{
+    const filterColor = (item) => searchColor.length ?  item.colors.filter(color => searchColor.includes(color)).some(Boolean): true
+    const filterPrice = (item) => searchPrice.length ? searchPrice.map(price=>item.price<price && item.price>price-500).some(Boolean):true
+    const filterCategory = (item) => searchCategory ? item.category===searchCategory : true
+    const filterValue = (item) => searchValue ? item.itemname.toLowerCase().match(searchValue.toLowerCase()) : true  
+    if (InitalItems ){
+      let newItems = InitalItems.filter(item => filterColor(item) && filterPrice(item) && filterCategory(item) && filterValue(item))
+      if (sort==='PriceUp'){
+        newItems.sort((a,b)=> a.price-b.price)
+      }
+      else if (sort === 'PriceDown'){
+        newItems.sort((a,b)=> -a.price+b.price)
+      }
+      setItems(newItems)
+    }
+
+
+  },[searchValue,InitalItems,searchCategory,searchColor,searchPrice,sort])
   const handleAddtoCart = async(itemId,user) =>{
     const result = await updateCart({username:user,itemId})
    
@@ -64,16 +93,9 @@ const ItemList = () => {
 
     content = (
       <>
-        <div className='filter-container'>
-          <div className='filter-list'>
-            <button className='filter-btn'>Category <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
-            <button className='filter-btn'>Color <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
-            <button className='filter-btn'>Price <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
-          </div>
-          <button className='filter-btn'>Sort <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
-        </div>
+        <ItemFilter/>
         <div className='item-list-container'>
-          {items.map( (item) => {
+          {items?.map( (item) => {
             return (
               <div key={item._id} className='item-container flex-center-column'>
                 <div className='item-image-container'>

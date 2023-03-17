@@ -38,7 +38,13 @@ const Login = ({handleLoginView}) => {
     const handleTogglePopUp = () =>{
       setPopUp((prevState) => !prevState)
     }
-
+    const handleLogout = async() =>{
+      const logOut = await logout()
+      if (logOut){
+        console.log(logout)
+        navigate('/')
+      }
+    }
 
     const handleCreateUser =async (e) => {
       e.preventDefault()
@@ -106,7 +112,7 @@ const Login = ({handleLoginView}) => {
     content = <div className='login-overlay'>
       <div className='logout-form'>
         <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
-        <button className='login-button' onClick={logout}>Logout</button>
+        <button className='login-button' onClick={handleLogout}>Logout</button>
       </div>
 
     </div>

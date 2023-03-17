@@ -81,30 +81,8 @@
     gap:4px;
     
 }
-.filter-btn{
-    width: fit-content;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 15px;
-}
-.filter-btn:hover{
-    color:white;
-    background-color: black;
-}
+
 @media screen and (max-width:768px) {
-    .filter-container {
-            padding-left: var(--SMALL-CONTAINER-PADDING);
-            padding-right: var(--SMALL-CONTAINER-PADDING);
-            ;
-        }
-    .filter-btn {
-        width: fit-content;
-        padding: 5px;
-        padding-left: 6px;
-        padding-right: 6px;
-        border-radius: 15px;
-    }
     .item-list-container {
         grid-template-columns: repeat(3, 25vw);
         padding-left: var(--SMALL-CONTAINER-PADDING);

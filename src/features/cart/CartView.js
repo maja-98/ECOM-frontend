@@ -8,7 +8,7 @@ import {  useClearCartMutation, useGetCartQuery, useUpdateCartMutation} from './
 
 const CartView = () => {
    const {userId,username:usernameFromAuth} = useAuth()
-   
+   console.log(usernameFromAuth)
    const {
     data:user
    }  = useGetUserbyIdQuery({userId})

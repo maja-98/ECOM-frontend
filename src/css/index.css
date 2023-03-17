@@ -11,6 +11,7 @@
 @import url('./popup.css');
 @import url('./orders.css');
 @import url('./login.css');
+@import url('./itemfilter.css');
 :root{
     --PRIMARY-CLR :#333333;
     --SECONDARY-CLR :#E1F4F3;

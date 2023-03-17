@@ -4,6 +4,7 @@ export const extendedCartApiSlice  = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getCart : builder.query({
             query: (arg) => {
+                
                 return {
                 url: `/carts/${arg.username}`,
                 method:'GET',

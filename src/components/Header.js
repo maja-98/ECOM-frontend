@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faChevronDown, faChevronUp, faMagnifyingGlass, faRectangleList, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import Login from './Login'
 import useAuth from '../hooks/useAuth'
+import {setSearch } from '../features/items/itemSearchSlice'
+import { useDispatch } from 'react-redux'
+
+
 
 
 const Header = () => {
   const [loginView,setloginView] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [categoryListShow,setCategoryListShow] = useState(false)
   const handleLoginView = ()=>setloginView(prevState=> !prevState)
+  const handleSearch = (e) =>{
+    dispatch(setSearch({searchValue:e.target.value}))
+  }
   const {username} = useAuth()
   return (
     <div className='header-container'>
@@ -22,8 +30,9 @@ const Header = () => {
           {categoryListShow===false ? <FontAwesomeIcon className='checron-icon'  icon={faChevronDown} /> : <FontAwesomeIcon className='checron-icon' icon={faChevronUp}/>}
         </div>
         {categoryListShow && <div className='flex-center-column category-items'>
-          <p>Pardha</p>
-          <p>Maxi</p>
+          <p onClick={() =>dispatch(setSearch({searchCategory:''}))}>All</p>
+          <p onClick={() =>dispatch(setSearch({searchCategory:'Pardha'}))}>Pardha</p>
+          <p onClick={() =>dispatch(setSearch({searchCategory:'Maxi'}))}>Maxi</p>
         </div>}
       </div>
 
@@ -31,7 +40,7 @@ const Header = () => {
 
       <div className='search-container'>
         
-        <input  className='search-box' type={'text'} placeholder={'Search Product'}></input>
+        <input  className='search-box' type={'text'} onChange={handleSearch}  placeholder={'Search Product'}></input>
         <FontAwesomeIcon className='search-icon'  icon={faMagnifyingGlass} />
       </div>
 
