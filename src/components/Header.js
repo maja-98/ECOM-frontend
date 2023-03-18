@@ -24,6 +24,9 @@ const Header = () => {
     if (!username){
       setloginView(true)
     }
+    else{
+      setloginView(false)
+    }
   },[username])
   return (
     <div className='header-container'>

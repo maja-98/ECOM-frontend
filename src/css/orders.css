@@ -91,6 +91,18 @@
     background-color: black;
     color: white;
 }
+.order-filter{
+    width: 100px;
+    margin-right: 10px;
+}
+.admin-order-container{
+    margin-bottom: 10px;
+}
+select{
+    border-radius: 10px;
+    width: 80px;
+    height: 30px;
+}
 @media screen and (max-width:768px) {
     .order-container{
         height: 500px;

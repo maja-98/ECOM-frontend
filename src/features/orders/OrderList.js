@@ -1,6 +1,6 @@
 import { faCaretDown, faCaretUp, faSadTear, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PopUp from '../../components/PopUp'
 import useAuth from '../../hooks/useAuth'
 import { useGetOrderbyUserIdQuery, useUpdateOrderMutation } from './orderSlice'
@@ -10,16 +10,31 @@ const OrderList = () => {
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('This is a Test Message')
   const [heading,setHeading] = useState('This is Heading')
+  const [status,setStatus] = useState('')
+  const [searchOrderID,setSearchOrderID] = useState('')
+  const [Orders,setOrders] = useState([])
+
   const handleTogglePopUp = () =>{
     setPopUp((prevState) => !prevState)
   }
   const {userId,role} = useAuth()
     const {
-        data:Orders,
+        data:InitialOrders,
         isLoading,
         isError,
         error
     } = useGetOrderbyUserIdQuery({userId})
+    useEffect(() => {
+      if (InitialOrders){
+        const filterStatus = (order) =>  status ? order.status===status : true 
+        const filterOrderId = (order) => searchOrderID ?  order.orderId.toString().match(searchOrderID) :true 
+        const newOrders = InitialOrders.filter(order => filterStatus(order) && filterOrderId(order))
+        if (role==='Admin'){
+          newOrders.reverse()
+        }
+        setOrders(newOrders)
+      }
+    },[status,searchOrderID,InitialOrders,role])
   const [updateOrderStatus] = useUpdateOrderMutation()
   const handleDisplayOrderDetails =(val)=>{
     setDisplayOrderDetails(prev =>{
@@ -72,19 +87,28 @@ const OrderList = () => {
       )
     }
   else{
-    if (Orders?.length===0){
-      content = (
-      <div className='no-item-container '>
-          <div className='flex-center-column'>
-            <FontAwesomeIcon icon={faSadTear}  size='3x'/>
-            <p>No Orders Placed</p>
-          </div>
-        </div>
-        )
-    }else{
+
       content = <div className='order-container  '>
           <h2>Orders</h2>
-          {Orders?.map( order => {
+          {role==='Admin' && <div className='admin-order-container'>
+            <input type={'text'} value={searchOrderID} onChange={(e)=>setSearchOrderID(e.target.value)} className='order-filter' placeholder='Order ID'></input>
+            <select name="status" id="status" onChange={(e)=>setStatus(e.target.value)}>
+              <option value="">All</option>
+              <option value="placed">placed</option>
+              <option value="Packed">Packed</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Return Initiated">Return</option>
+              <option value="Returned">Returned</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>}
+          {Orders?.length===0 ?       <div className='no-item-container '>
+
+          <div className='flex-center-column'>
+            <FontAwesomeIcon icon={faSadTear}  size='3x'/>
+            <p>No Orders Found</p>
+          </div>
+        </div> :Orders?.map( order => {
             return <div className='order-wrapper' key={order._id}>
                 <div className='single-order-container' >
                   
@@ -113,11 +137,11 @@ const OrderList = () => {
                       </div>
                 })}
                 {order.status!=='Cancelled' &&<div className='cancel-order-button-container'>
-                  {<button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Cancelled')}>Cancel Order</button>}
+                  {order.status==='placed' && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Cancelled')}>Cancel Order</button>}
                   {(order.status==='placed' && role==='Admin') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Packed')}>Packed</button>}
                   {(order.status==='Packed' && role==='Admin') &&  <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Delivered')}>Delivered</button>}
                   {(order.status==='Delivered') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Return Initiated')}>Return</button>}
-                  {(order.status==='Return Initiated' && role==='Admin') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Returned')}>Return Completed</button>}
+                  {(order.status==='Return Initiated' && role==='Admin') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Returned')}>Returned</button>}
                 </div>}
                 
               </div>}
@@ -136,7 +160,7 @@ const OrderList = () => {
           }
           )}
       </div>
-    }
+    
   }
   return (
     <>
