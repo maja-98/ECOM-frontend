@@ -79,10 +79,10 @@ const OrderList = () => {
                   
                 </div>
                     <div  className='order-items-container'>
-                                                      <p >Item </p>
-                                                      <p > Quantity </p>
-                                                      <p >Price</p>
-                                                  </div>                          
+                        <p ><b>Item</b></p>
+                        <p ><b>Quantity</b></p>
+                        <p ><b>Price</b></p>
+                    </div>                          
                     {order.items.map(item => {
                     return <div key={item._id} className='order-items-container'>
                           <p >{item.itemname} </p>
@@ -90,7 +90,10 @@ const OrderList = () => {
                           <p >{item.price} ₹</p>
                       </div>
                 })}
-
+                {order.status==='placed' &&<div className='cancel-order-button-container'>
+                  <button>Cancel Order</button>
+                </div>}
+                
               </div>}
               {displayOrderDetails===order.orderId && <div className='order-ship-address-container'>
                             <h6>Shipping Address</h6>

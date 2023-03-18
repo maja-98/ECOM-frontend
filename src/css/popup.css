@@ -32,3 +32,6 @@
 .overlay-message-content{
     font-family: 'Open Sans';
 }
+@media screen and (max-width:768px) {}
+@media screen and (max-width:400px) {}
+@media screen and (max-height:400px) {}

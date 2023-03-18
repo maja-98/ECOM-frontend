@@ -11,7 +11,7 @@
     width: 100%;
     margin: 10px;
     border-radius: 20px;
-    background-color: #E1F4F3;
+    background-color: #e8f0f0;
 }
 .cart-image-container>img{
     width: 140px;
@@ -22,7 +22,6 @@
     gap: 20px;
     padding-left: 20px;
     padding-right: 100px;
-    
 }
 .cart-items-container{
     height: 500px;
@@ -30,16 +29,15 @@
     overflow-x: hidden;
     padding-right: 20px;
 }
-.shipping-form >h2,.cart-items-container>h2{
+.shipping-form >h2,        .main-container-cart>h2{
     margin-bottom: 30px;
     padding: 5px;
     text-align: center;
     background-color: rgb(44, 38, 30);
     color: aliceblue;
     border-radius: 20px;
-    
 }
- .cart-items-container>h2{
+         .main-container-cart>h2{
     margin-bottom:  20px;
 }
 .form-input-container{
@@ -49,7 +47,6 @@
     font-family:'Times New Roman', Times, serif;
     font-weight: 500;
     align-items: center;
-   
     position: relative;
 }
 .form-input-container>input{
@@ -80,9 +77,8 @@
     display: none;
 }
 .error-message{
-    position: absolute;
-    left: 39%;
-    top:1%;
+    width: 100%;
+    text-align: left;
     font-size: 10px;
     color: red;
     font-family:Verdana, Geneva, Tahoma, sans-serif
@@ -95,18 +91,23 @@
     align-items: center;
     justify-content: center;
     color: white;
+    margin: 10px;
 }
 .total-price-cart-container>p{
-        background-color: #706C61;
+        background-color: #000000;
         width: 50%;
         text-align: center;
-            padding: 5px;
-            border-radius: 10px;
+        padding: 5px;
+        border-radius: 10px;
 }
+        .cart-quantity-controller {
+        display: flex;
+        justify-content: center;
+        }
 @media screen and (max-width:768px) {
     .cart-main-container {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 10%;
+        padding-right: 10%;
         display: flex;
         flex-direction: column;
     }
@@ -118,7 +119,22 @@
         padding: 3px;
     }
         .cart-items-price-container>h4{
-            font-size: 8px;
+        font-size: 13px;
+        }
+        .cart-items-price-container>p{
+        font-size: 13px;
+        }
+        .cart-quantity-controller>input{
+        font-size: 12px;
+        }
+        .cart-item-delete-button{
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        }
+        .total-price-cart-container>p{
+        font-size: 12px;
         }
     .cart-items-container{
         height: 300px;
@@ -128,16 +144,18 @@
     }
     .shipping-form {
         gap: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 10%;
+        padding-right: 10%;
+        border: 1px solid rgb(65, 52, 52);
+        padding-top: 5px;
     }
     .shipping-form>h2,
-    .cart-items-container>h2 {
+            .main-container-cart>h2 {
         margin-bottom: 10px;
         padding: 5px;
         font-size: 17px;
     }
-    .cart-items-container>h2 {
+            .main-container-cart>h2 {
         margin-bottom: 10px;
     }
     .form-input-container {
@@ -149,12 +167,105 @@
         align-items: center;
         position: relative;
     }
-    .form-input-container>input {
+    .form-input-container>label{
+        font-size: 13px;
+}
+    .form-input-container>div>input, .form-input-container>input{
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 300px;
+        font-size: 13px;
+    }
+    .error-message {
+        font-size: 10px;
+    }
+    .cart-btns>button{
+        font-size: 13px;
+        width: 100px;
+    }
+}
+@media screen and (max-width:400px) {
+    .cart-main-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+        .cart-items-price-container>p {
+        font-size: 8px;
+        }
+    .cart-items-price-container {
+        margin-left: 10px;
+        flex-direction: row;
+    }
+        .cart-quantity-controller>input {
+        font-size: 9px;
+        width: 30px;
+        height: 30px;
+        }
+        .cart-item-delete-button {
+        width: 50px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        }
+        .total-price-cart-container>p {
+        font-size: 12px;
+        }
+        .total-price-cart-container>p {
+        font-size: 10px;
+        }
+    .cart-items-price-container>h4 {
+        font-size: 8px;
+        text-align: center;
+    }
+    .cart-items-container {
+        height: 300px;
+    }
+    .cart-image-container>img {
+        width: 100px;
+    }
+    .cart-item-delete-button{
+        font-size: 8px;
+        width: 40px;
+    }
+    .shipping-form {
+        gap: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .shipping-form>h2,
+            .main-container-cart>h2 {
+        margin-bottom: 10px;
+        padding: 5px;
+        font-size: 15px;
+    }
+            .main-container-cart>h2 {
+        margin-bottom: 10px;
+    }
+    .form-input-container {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 500;
+        align-items: center;
+        position: relative;
+    }
+    .form-input-container>input,.form-input-container>div>input {
         padding-left: 5px;
         padding-top: 5px;
         padding-bottom: 5px;
+        font-size: 10px;
+        width: 240px;
     }
+        .form-input-container>label{
+        font-size: 10px;
+        }
     .error-message {
-        font-size: 7px;
+        font-size: 8px;
     }
+        .cart-btns>button {
+        font-size: 10px;
+        width: 70px;
+        }
 }

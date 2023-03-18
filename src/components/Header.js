@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faChevronDown, faChevronUp, faMagnifyingGlass, faRectangleList, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
@@ -20,6 +20,11 @@ const Header = () => {
     dispatch(setSearch({searchValue:e.target.value}))
   }
   const {username} = useAuth()
+  useEffect(()=>{
+    if (!username){
+      setloginView(true)
+    }
+  },[username])
   return (
     <div className='header-container'>
       <h1 className='logo' onClick={()=>navigate('/')}>Dubai Pardhas</h1>

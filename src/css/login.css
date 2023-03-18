@@ -48,7 +48,11 @@
 .login-form>h1{
     color: black;
     font-family:'Lora';
-    margin-bottom:20px;
+}
+.login-form>p {
+    color: black;
+    font-family: 'Arva';
+    margin-bottom: 20px;
 }
 .login-page-close-button{
     position: absolute;
@@ -78,3 +82,5 @@
     width: 300px;
     border-radius: 50px;
 }
+@media screen and (max-width:400px) {}
+@media screen and (max-height:400px) {}

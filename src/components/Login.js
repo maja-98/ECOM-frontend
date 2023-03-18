@@ -41,7 +41,6 @@ const Login = ({handleLoginView}) => {
     const handleLogout = async() =>{
       const logOut = await logout()
       if (logOut){
-        console.log(logout)
         navigate('/')
       }
     }
@@ -90,6 +89,7 @@ const Login = ({handleLoginView}) => {
         <form className='login-form' onSubmit={(e) => handleCreateUser(e)}>
           <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
             <h1>Sign Up</h1>
+            <p>Login If you already have an account</p>
             <input className='login-input signup-input' placeholder='Username' onChange={(e) => setUsernameNew(e.target.value)} value={usernameNew} id='username' type={'text'}></input>         
             
             <input className='login-input signup-input' placeholder='Password' onChange={(e) => setPasswordNew(e.target.value)} type='password' value={passwordNew} id='password' ></input>         
@@ -123,6 +123,7 @@ const Login = ({handleLoginView}) => {
                 <div className='login-form'>
                       <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
                       <h1>Dubai Pardha Palace</h1>
+                      <p>Login/SignUp to use Application</p>
                       <input className='login-input'  placeholder='Username' onChange={(e) => setUsername(e.target.value)} value={username} id='username' type={'text'}></input>            
                       <input  className='login-input' placeholder='Password' id='password' onChange={(e) => setPassword(e.target.value)} value={password} type={'password'}></input>
                       <button className='login-button' onClick={handleSubmit}>Login</button>

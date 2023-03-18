@@ -8,7 +8,6 @@ import {  useClearCartMutation, useGetCartQuery, useUpdateCartMutation} from './
 
 const CartView = () => {
    const {userId,username:usernameFromAuth} = useAuth()
-   console.log(usernameFromAuth)
    const {
     data:user
    }  = useGetUserbyIdQuery({userId})
@@ -99,56 +98,66 @@ const CartView = () => {
     }
     else{
       content =  Cart?.items.length > 0 ?    <div className='cart-main-container'>
-        
-        <div className='cart-items-container'>
+        <div className='main-container-cart'>
           <h2>Cart</h2>
-          {Cart?.itemObjects?.map(item =>{
-            return ( 
-              <li className='cart-items' key={item._id}> 
-                <div className='cart-image-container'>
-                  {item.images.map((image,i) => {
-                    return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
-                  })}
-                  
-                </div>
-                <div className='cart-items-price-container'>
-                  <h4>{item.itemname}</h4>
-                  <p>{item.price}₹ </p>
-                </div>
-                <div className='cart-quantity-controller' >
-
-                  <input type={'number'} defaultValue={item.cartQuantity} 
-                  onChange={(e)=>e.target.value>item.inventory? e.target.value=item.inventory:e.target.value}
-                    min='1' max={item.inventory} 
-                    onBlur={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:e.target.value})}>
-                    
-                    </input>
-                </div>
-                <div className='cart-image-container'>
-                  <button  onClick={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:0})} className='cart-item-delete-button'>{<FontAwesomeIcon icon={faTrash}/>}</button>
-                </div>
-              </li>
-            )
-          }) 
-          }
-          <div>
-                    <div className='total-price-cart-container'>
-           {<p>Total: {totalPrice}₹</p>}
-        </div>
+          <div className='cart-items-container'>
             
+            {Cart?.itemObjects?.map(item =>{
+              return ( 
+                <li className='cart-items' key={item._id}> 
+                  <div className='cart-image-container'>
+                    {item.images.map((image,i) => {
+                      return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
+                    })}
+                    
+                  </div>
+                  <div className='cart-items-price-container'>
+                    <h4>{item.itemname}</h4>
+                    <p>{item.price}₹ </p>
+                  </div>
+                  <div className='cart-quantity-controller' >
+
+                    <input type={'number'} defaultValue={item.cartQuantity} 
+                    onChange={(e)=>e.target.value>item.inventory? e.target.value=item.inventory:e.target.value}
+                      min='1' max={item.inventory} 
+                      onBlur={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:e.target.value})}>
+                      
+                      </input>
+                  </div>
+                  <div className='cart-image-container'>
+                    <button  onClick={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:0})} className='cart-item-delete-button sm-none'>{<FontAwesomeIcon icon={faTrash}/>}</button>
+                    <button  onClick={(e) => handleUpdateQuantity({itemId:item.itemId,newQuantity:0})} className='cart-item-delete-button lg-none'>Delete</button>
+                  </div>
+                </li>
+              )
+            }) 
+            }
+            <div>
+  
+              
+            </div>
           </div>
-        </div>
+          <div className='total-price-cart-container'>
+              {<p>Total: {totalPrice}₹</p>}
+            </div>
+        </div>  
         <div className='shipping-form'>
           <h2>Shipping Address</h2>
           <div className='form-input-container'>
             <label htmlFor='name'>Name</label>
-            <input className={!username.trim()===false?'no-error':'error-validation'} value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
-            {!username.trim()===true && <small className='error-message'>Username required</small>}
+
+            <div className='flex-center-column '>
+              <input className={!username.trim()===false?'no-error':'error-validation'} value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
+              {!username.trim()===true && <small className='error-message'>Username required</small>}
+            </div>
           </div>
           <div className='form-input-container'>
             <label  htmlFor='address1'>Address Line 1</label>
-            <input className={!shippingAddress1.trim()===false?'no-error':'error-validation'}  value={shippingAddress1} onChange={(e) =>setShippingAddress1(e.target.value)} required id='address1'></input>
-            {!shippingAddress1.trim()===true && <small className='error-message'>Address Line 1 required</small>}
+            <div className='flex-center-column '>
+              <input className={!shippingAddress1.trim()===false?'no-error':'error-validation'}  value={shippingAddress1} onChange={(e) =>setShippingAddress1(e.target.value)} required id='address1'></input>
+              {!shippingAddress1.trim()===true && <small className='error-message'>Address Line 1 required</small>}
+            </div>
+
           </div>
           <div className='form-input-container'>
             <label htmlFor='address2'>Address Line 2</label>
@@ -156,13 +165,19 @@ const CartView = () => {
           </div>
           <div className='form-input-container'>
             <label htmlFor='pincode'>Pin Code</label>
-            <input className={((isNaN(pincode)===true)||(!pincode.trim() ))===false?'no-error':'error-validation'} value={pincode} onChange={(e) =>setPincode(e.target.value)} required id='pincode'></input>
-            {(isNaN(pincode)||!pincode.trim()===true )&& <small className='error-message'>Numeric Pincode number required</small>}
+
+            <div className='flex-center-column '>
+              <input className={((isNaN(pincode)===true)||(!pincode.trim() ))===false?'no-error':'error-validation'} value={pincode} onChange={(e) =>setPincode(e.target.value)} required id='pincode'></input>
+              {(isNaN(pincode)||!pincode.trim()===true )&& <small className='error-message'>Numeric Pincode number required</small>}
+            </div>
           </div>
           <div className='form-input-container'>
             <label htmlFor='phone'>Phone</label>
-            <input  className={(isNaN(phone)||!phone.trim()===false)?'no-error':'error-validation'} value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
-            {(isNaN(phone)||!phone.trim()===true) && <small className='error-message'>Numeric Phone number required</small>}
+            
+            <div className='flex-center-column '>
+              <input  className={(isNaN(phone)||!phone.trim()===false)?'no-error':'error-validation'} value={phone} onChange={(e) =>setPhone(e.target.value)} required type={'phone'} id='phone'></input>
+              {(isNaN(phone)||!phone.trim()===true) && <small className='error-message'>Numeric Phone number required</small>}
+            </div>
           </div>
           <div className='form-input-container'>
             <label htmlFor='email'>Email</label>

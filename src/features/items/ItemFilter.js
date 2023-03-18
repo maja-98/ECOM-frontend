@@ -2,15 +2,17 @@ import { faCaretDown, faDotCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectSearchColor, selectSearchPrice, selectSort, setSearch } from './itemSearchSlice'
+import { selectSearchCategory, selectSearchColor, selectSearchPrice, selectSort, setSearch } from './itemSearchSlice'
 
 const ItemFilter = () => {
     const dispatch = useDispatch()
   const [colorDropDown,setColorDropDown] = useState(false)
+  const [categoriesDropDown,setCategoriesDropDown] = useState(false)
   const [priceDropDown,setPriceDropDown] = useState(false)
   const [sortDropDown,setSortDropDown] = useState(false)
   const searchColor = useSelector(selectSearchColor)
   const searchPrice = useSelector(selectSearchPrice)
+  const searchCategory = useSelector(selectSearchCategory)
   const sort = useSelector(selectSort)
 
   return (
@@ -30,6 +32,15 @@ const ItemFilter = () => {
                 {priceDropDown && <div className='hidden-filters'>
                     <p onClick={() =>dispatch(setSearch({searchPrice:'500'}))}>{'<500'} {searchPrice.includes('500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                     <p onClick={() =>dispatch(setSearch({searchPrice:'1000'}))}>500-1000 {searchPrice.includes('1000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                </div>}
+            </div>
+            <div className='filter lg-none'>
+                <button className='filter-btn' onClick={()=>setCategoriesDropDown(prev=>!prev)}>Categories <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+
+                {categoriesDropDown && <div className='hidden-filters'>
+                    <p onClick={() =>dispatch(setSearch({searchCategory:''}))}>All {searchCategory==='' && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchCategory:'Pardha'}))}>Pardha {searchCategory==='Pardha' && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchCategory:'Maxi'}))}>Maxi {searchCategory==='Maxi' && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                 </div>}
             </div>
           </div>

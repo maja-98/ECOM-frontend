@@ -7,7 +7,6 @@
     padding-right: var(--DEFAULT-CONTAINER-PADDING);
     padding-top: 20px;
     gap: 20px;
-    
 }
 .filter-container {
     padding-left: var(--DEFAULT-CONTAINER-PADDING);
@@ -79,14 +78,12 @@
     justify-content: center;
     align-items: center;
     gap:4px;
-    
 }
-
 @media screen and (max-width:768px) {
     .item-list-container {
-        grid-template-columns: repeat(3, 25vw);
-        padding-left: var(--SMALL-CONTAINER-PADDING);
-        padding-right: var(--SMALL-CONTAINER-PADDING);
+        grid-template-columns: repeat(3, 29vw);
+        padding-left: 30px;
+        padding-right: 30px;
         padding-top: 20px;
         gap: 20px;
     }
@@ -95,8 +92,14 @@
         padding-left: 5px;
         padding-right: 5px;
     }
+    .item-detail-header>h5{
+        font-size: 15px;
+    }
+    .item-detail-header>h6{
+        font-size: 12px;
+    }
     .item-price {
-        font-size: 7px;
+        font-size: 13px;
     }
     .item-container {
         padding: 5px;
@@ -104,14 +107,47 @@
         ;
     }
     .add-to-cart-button {
-        
         margin: 0px;
         padding: 0px;
-        height: 20px;
-        width: 20px;
+        height: 30px;
+        width: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-
+}
+@media screen and (max-width:400px) {
+    .item-list-container {
+            grid-template-columns: repeat(3, 25vw);
+            padding-left: var(--SMALL-CONTAINER-PADDING);
+            padding-right: var(--SMALL-CONTAINER-PADDING);
+            padding-top: 20px;
+            gap: 20px;
+        }
+   .item-details-container {
+       gap: 4px;
+       padding-left: 5px;
+       padding-right: 5px;
+   }
+        .item-detail-header>h5 {
+            font-size: 9px;
+        }
+        .item-detail-header>h6 {
+            font-size: 8px;
+        }
+        .item-price {
+            font-size: 9px;
+        }
+   .add-to-cart-button {
+       margin: 0px;
+       padding: 0px;
+       height: 15px;
+       width: 15px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }
+   .add-to-cart-button>p>svg{
+    font-size: 8px;
+   }
 }

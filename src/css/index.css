@@ -106,7 +106,10 @@ p{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+}
+
+.flex-center-column>svg{
+    margin-bottom: 10px;
 }
 .g-20{
     gap: 20px;
@@ -122,7 +125,6 @@ p{
     grid-template-rows: 1fr 8fr 1fr;
     height: 100%;
     width: 100%;
-    
 }
 .footer{
     height: 100%;
@@ -130,18 +132,17 @@ p{
     display: flex;
     flex-wrap:wrap;
     align-items: flex-end;
-    
 }
 .disabled-btn{
     color: grey;
 }
 @media screen and (max-width:768px) {
     input {
-        width: 150px;
+        width: 180px;
         height: 40px;
         padding: 5px;
         padding-left: 20px;
-        font-size: 10px;
+        font-size: 9px;
     }
     input[type=number] {
         text-align: center;
@@ -175,3 +176,5 @@ p{
         display: flex;
     }
 }
+@media screen and (max-width:400px) {}
+@media screen and (max-height:400px) {}

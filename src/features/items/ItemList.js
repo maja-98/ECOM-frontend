@@ -62,7 +62,7 @@ const ItemList = () => {
     const result = await updateCart({username:user,itemId})
    
     if (result?.data?.message!==undefined){
-        handlePopUpContent('notification','Item Added to Cart','')
+        handlePopUpContent('Item Added to Cart','Success')
         handleTogglePopUp()
     }
   }
@@ -114,7 +114,7 @@ const ItemList = () => {
                   <div className='add-to-cart-container'>
                     <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
                       <p className='sm-none'>Add to Cart</p> 
-                      <p className='lg-none'><FontAwesomeIcon  size='sm' icon={faCartPlus}/></p>
+                      <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faCartPlus}/></p>
                     </button>
                   </div>
                   
