@@ -1,4 +1,4 @@
-import {  faCartPlus, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faCartPlus, faEye, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect,  useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { useUpdateCartMutation } from '../cart/cartSlice';
 import ItemFilter from './ItemFilter';
 import { selectSearchCategory, selectSearchValue,selectSearchColor, selectSearchPrice, selectSort } from './itemSearchSlice';
 import {useGetItemsQuery} from './itemSlice'
+import SingleItem from './SingleItem';
 
 
 
@@ -17,6 +18,7 @@ const ItemList = () => {
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('This is a Test Message')
   const [heading,setHeading] = useState('This is Heading')
+  const [viewSingleItem,setViewSingleItem] = useState({view:false,itemId:''})
   const [items,setItems] = useState([])
   const searchValue = useSelector(selectSearchValue)
   const searchCategory = useSelector(selectSearchCategory)
@@ -38,7 +40,15 @@ const ItemList = () => {
     error
   } = useGetItemsQuery()
   const [updateCart] = useUpdateCartMutation()
-
+  const handleViewItem = (itemId) =>{
+    console.log(viewSingleItem)
+      if (viewSingleItem.view){
+        setViewSingleItem(prev=>{return {...prev,view:false}})
+      }
+      else{
+        setViewSingleItem(prev=>{return {itemId,view:true}})
+      }
+  }
   
   useEffect(()=>{
     const filterColor = (item) => searchColor.length ?  item.colors.filter(color => searchColor.includes(color)).some(Boolean): true
@@ -94,10 +104,10 @@ const ItemList = () => {
     content = (
       <>
         <ItemFilter/>
-        <div className='item-list-container'>
+        <div className='item-list-container' >
           {items?.map( (item) => {
             return (
-              <div key={item._id} className='item-container flex-center-column'>
+              <div key={item._id} className='item-container flex-center-column' >
                 <div className='item-image-container'>
                   {item.images.map((image,i) => {
                     return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
@@ -112,6 +122,10 @@ const ItemList = () => {
                     <p className='item-price'>₹{item.price} </p>
                   </div>
                   <div className='add-to-cart-container'>
+                    <button className='add-to-cart-button' onClick={() => handleViewItem(item.itemId)}>
+                      <p className='sm-none'>View Item</p> 
+                      <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faEye}/></p>
+                    </button>
                     <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
                       <p className='sm-none'>Add to Cart</p> 
                       <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faCartPlus}/></p>
@@ -125,6 +139,7 @@ const ItemList = () => {
           )}
         </div>
         {popup && <PopUp  message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
+        {viewSingleItem.view && <SingleItem   itemId={viewSingleItem.itemId} handleViewItem={handleViewItem}/>}
       </>
     )
 

@@ -5,6 +5,12 @@
     padding-right: 10px;
     border-radius: 15px;
 }
+.link-addon{
+    border:1px solid black;
+    text-decoration: none;
+    margin-top: 5px;
+    color: black;
+}
 .filter-btn:hover {
     color: white;
     background-color: black;

@@ -2,6 +2,8 @@ import { faCaretDown, faDotCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 import { selectSearchCategory, selectSearchColor, selectSearchPrice, selectSort, setSearch } from './itemSearchSlice'
 
 const ItemFilter = () => {
@@ -14,6 +16,7 @@ const ItemFilter = () => {
   const searchPrice = useSelector(selectSearchPrice)
   const searchCategory = useSelector(selectSearchCategory)
   const sort = useSelector(selectSort)
+  const {role} = useAuth()
 
   return (
         <div className='filter-container'>
@@ -43,6 +46,9 @@ const ItemFilter = () => {
                     <p onClick={() =>dispatch(setSearch({searchCategory:'Maxi'}))}>Maxi {searchCategory==='Maxi' && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                 </div>}
             </div>
+            {role==='Admin' && <div className='filter'>
+                <Link to={'/add'} className='filter-btn link-addon' >Add Item </Link>
+            </div>}
           </div>
           <div className='filter'>
             <button onClick={()=>setSortDropDown(prev=>!prev)} className='filter-btn'>Sort <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
