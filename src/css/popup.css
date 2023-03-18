@@ -11,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 4;
 }
 .overlay-message-container{
     width: 30%;
@@ -59,16 +60,18 @@
     
         .login-page-close-button {
         right: 1px;;
-        width: 15px;
+        
         margin: 5px;
         margin-right: 0px;
-        height: 15px;
+        height: 20px;
+        padding: 0px;
         }
         .overlay-message-container {
         width: 40%;
         }
         .login-page-close-button>svg {
         font-size: 10px;
+
         }
         .overlay-message-content-container{
         min-height: 40px;

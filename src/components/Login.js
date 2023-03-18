@@ -73,7 +73,12 @@ const Login = ({handleLoginView}) => {
               navigate('/')
               handleLoginView()
           } catch (err) {
-              handlePopUpContent (err.data.message,"Error")
+              if (err.data.message==='Unauthorized'){
+                handlePopUpContent("Invalid Username/Password","Error")
+              }else{
+                handlePopUpContent (err.data.message,"Error")
+              }
+              
               setPopUp(true)
           }
       }
@@ -111,6 +116,7 @@ const Login = ({handleLoginView}) => {
   else if (usernameFromAuth){
     content = <div className='login-overlay'>
       <div className='logout-form'>
+        <h1 className='username-fromauth'>{usernameFromAuth}</h1>
         <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
         <button className='login-button' onClick={handleLogout}>Logout</button>
       </div>
