@@ -1,18 +1,26 @@
 import { faCaretDown, faCaretUp, faSadTear, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+import PopUp from '../../components/PopUp'
 import useAuth from '../../hooks/useAuth'
-import { useGetOrderbyUserIdQuery } from './orderSlice'
+import { useGetOrderbyUserIdQuery, useUpdateOrderMutation } from './orderSlice'
 
 const OrderList = () => {
   const [displayOrderDetails,setDisplayOrderDetails] = useState('')
-  const {userId} = useAuth()
+  const [popup,setPopUp] = useState(false)
+  const [message,setMessage] = useState('This is a Test Message')
+  const [heading,setHeading] = useState('This is Heading')
+  const handleTogglePopUp = () =>{
+    setPopUp((prevState) => !prevState)
+  }
+  const {userId,role} = useAuth()
     const {
         data:Orders,
         isLoading,
         isError,
         error
     } = useGetOrderbyUserIdQuery({userId})
+  const [updateOrderStatus] = useUpdateOrderMutation()
   const handleDisplayOrderDetails =(val)=>{
     setDisplayOrderDetails(prev =>{
       if (prev===val){
@@ -22,6 +30,20 @@ const OrderList = () => {
         return val
       }
     })
+  }
+  const handleOrderStatusUpdate = async (Id,orderId,status) => {
+    const result = await updateOrderStatus({orderId:Id,status})
+    if (result?.error){
+      setHeading("Error")
+
+      setMessage(result?.error?.data?.message)
+      
+    }
+    else{
+      setHeading("Success")
+      setMessage(`Order with ${orderId} ${status}`)
+    }
+    handleTogglePopUp()
   }
   const dateFormatter  = (date) =>{
     const newDate = new Date(date).toLocaleString()
@@ -90,8 +112,12 @@ const OrderList = () => {
                           <p >{item.price} ₹</p>
                       </div>
                 })}
-                {order.status==='placed' &&<div className='cancel-order-button-container'>
-                  <button>Cancel Order</button>
+                {order.status!=='Cancelled' &&<div className='cancel-order-button-container'>
+                  {<button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Cancelled')}>Cancel Order</button>}
+                  {(order.status==='placed' && role==='Admin') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Packed')}>Packed</button>}
+                  {(order.status==='Packed' && role==='Admin') &&  <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Delivered')}>Delivered</button>}
+                  {(order.status==='Delivered') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Return Initiated')}>Return</button>}
+                  {(order.status==='Return Initiated' && role==='Admin') && <button onClick={()=>handleOrderStatusUpdate(order._id,order.orderId,'Returned')}>Return Completed</button>}
                 </div>}
                 
               </div>}
@@ -113,7 +139,11 @@ const OrderList = () => {
     }
   }
   return (
-    content
+    <>
+    {content}
+    {popup && <PopUp  message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
+    </>
+    
   )
 }
 

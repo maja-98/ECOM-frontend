@@ -9,6 +9,8 @@ https://dubai-pardha-palace.netlify.app/
 - [x] Create UI for Item List, Cart , Order for Users
 - [x] Apply filtering and sorting logics
 - [] Create UI for Admin opeartions
+- [] Create Single Item Page
+- [] Add a filter in Orders page to filter by Status for Admins
 - [x] Create Authentication and Permissions and Implement
 - [x] Mobile and Tablet resposive Site
 - [] Optimize the whole app performance

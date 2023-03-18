@@ -23,6 +23,7 @@
     color: white;
     padding: 5px;
     font-family: Arvo;
+    font-size: 25px;
 }
 .overlay-message-content-container{
     background-color: white;
@@ -32,6 +33,44 @@
 .overlay-message-content{
     font-family: 'Open Sans';
 }
-@media screen and (max-width:768px) {}
-@media screen and (max-width:400px) {}
-@media screen and (max-height:400px) {}
+@media screen and (max-width:768px) {
+    .overlay-message-head{
+        font-size: 18px;
+    }
+    .overlay-message-content{
+        font-size: 12px;
+    }
+        .login-page-close-button{
+        width: 20px;
+        height: 20px;
+        }
+    .login-page-close-button>svg{
+        font-size: 15px;
+    }
+}
+@media screen and (max-width:400px) {
+    .overlay-message-head {
+        font-size: 12px;
+        }
+    
+        .overlay-message-content {
+        font-size: 9px;
+        }
+    
+        .login-page-close-button {
+        right: 1px;;
+        width: 15px;
+        margin: 5px;
+        margin-right: 0px;
+        height: 15px;
+        }
+        .overlay-message-container {
+        width: 40%;
+        }
+        .login-page-close-button>svg {
+        font-size: 10px;
+        }
+        .overlay-message-content-container{
+        min-height: 40px;
+        }
+}
