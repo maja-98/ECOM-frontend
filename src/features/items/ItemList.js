@@ -41,7 +41,6 @@ const ItemList = () => {
   } = useGetItemsQuery()
   const [updateCart] = useUpdateCartMutation()
   const handleViewItem = (itemId) =>{
-    console.log(viewSingleItem)
       if (viewSingleItem.view){
         setViewSingleItem(prev=>{return {...prev,view:false}})
       }
@@ -109,9 +108,8 @@ const ItemList = () => {
             return (
               <div key={item._id} className='item-container flex-center-column' >
                 <div className='item-image-container'>
-                  {item.images.map((image,i) => {
-                    return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
-                  })}
+                  <img  className='item-image' src={item.images[0]} alt='Not Loaded'></img>
+                
                 </div>
                 <div className='item-details-container'>
                   <div className='item-details'>
@@ -126,10 +124,10 @@ const ItemList = () => {
                       <p className='sm-none'>View Item</p> 
                       <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faEye}/></p>
                     </button>
-                    <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
+                    {item.inventory && <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
                       <p className='sm-none'>Add to Cart</p> 
                       <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faCartPlus}/></p>
-                    </button>
+                    </button>}
                   </div>
                   
                 </div>

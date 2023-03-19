@@ -39,9 +39,7 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 return transformedData
             },
             providesTags : (result,error,arg) =>{ 
-                console.log([
-                {...result?.map(order=>({type:'Order',id:order._id}))}
-            ])
+
                 return [
                 {type:'Order',id:'LIST'},...result?.map(order=>({type:'Order',id:order._id}))
             ]}
@@ -69,7 +67,6 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 }
             })   ,
             invalidatesTags :(result,error,arg) =>{
-                console.log({type:'Order',id:arg.orderId})
                 return [ {type:'Order',id:arg.orderId}]   
             }    
         })

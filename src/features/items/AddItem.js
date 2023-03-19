@@ -69,7 +69,6 @@ const AddItem = () => {
         }).catch(err=>console.log(err)))
         setTimeout(async ()=>{
           const result = await createItem({itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
-          console.log(result)
           if (result?.data?.message){
             setMessage(result?.data?.message)
             setHeading('Success')
@@ -98,7 +97,7 @@ const AddItem = () => {
       content =    <div className='no-item-container '>
       <div className='flex-center-column'>
         <FontAwesomeIcon icon={faSpinner} spin size='3x'/>
-        <p>Loading...</p>
+        <p>Creating Item...</p>
       </div>
     </div>
     }else{

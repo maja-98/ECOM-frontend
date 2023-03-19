@@ -1,0 +1,144 @@
+.single-item-overlay{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background:linear-gradient(to right,rgb(68, 67, 67),white);
+    display:grid;
+    grid-template-columns: 2fr 2fr;
+}
+.item-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:10px
+}
+.item-details-container{
+    gap:20px
+}
+.brand{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: rgb(88, 88, 88);
+    padding: 0px;
+    margin-bottom: -12px;
+}
+.title{
+    font-family: 'Arvo';
+}
+.price{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+}
+.properties{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+}
+.main-image-container{
+    height: 500px;
+    margin-bottom: 20px;
+}
+.main-image-container>img{
+    height:500px;
+    border-radius:25px;
+    aspect-ratio: 1/1;
+}
+.all-images-container{
+    display: flex;
+    gap: 10px;
+    height: 120px;
+    align-items: center;
+}
+.all-images-container>img{
+    height: 100px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+.arrow-icons{
+    color: rgb(190, 179, 179);
+    font-size: 30px;
+    padding: 20px;
+}
+.arrow-icons:hover{
+    color: white;
+}
+.single-itempage-buttons>button{
+    background-color: transparent;
+    border: 1px solid rgb(115, 115, 115);
+    font-weight: 500;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: fit-content;
+    font-family: 'Times New Roman', Times, serif;
+}
+.single-itempage-buttons>button:hover{
+    background-color: rgba(255, 255, 255, 0.447);
+}
+@media screen and (max-width:768px) {
+}
+@media screen and (max-width:400px) {
+    .single-item-overlay {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, rgb(68, 67, 67), white);
+    }
+    .item-images-container {
+            padding: 10px;
+        }
+    
+        .item-details {
+            gap: 5px;
+           
+        }
+    
+        .item-details-container {
+            gap: 12px;
+        }
+    
+        .brand {
+            font-size: 14px;
+            color: rgb(87, 85, 85);
+            margin-bottom: -5px;
+        }
+    
+        .price {
+            font-size: 12px;
+        }
+    
+        .properties {
+            font-size: 10px;
+        }
+    
+        .main-image-container {
+            height: 230px;
+            margin-bottom: 16px;
+        }
+    
+        .main-image-container>img {
+            height: 230px;
+            border-radius: 10px;
+        }
+    
+        .all-images-container {
+            gap: 8px;
+    
+        }
+    .all-images-container>img{
+        height: 80px;
+    }
+    
+        .arrow-icons {
+            font-size: 20px;
+            padding:0px
+        }
+    
+        .single-itempage-buttons>button {
+    
+            font-size: 10px;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+}
