@@ -179,3 +179,12 @@ p{
     }
 
 }
+
+@media screen and (max-height:400px) {
+        .lg-none {
+                display: flex;
+            }
+            .sm-none{
+                display: none;
+            }
+}

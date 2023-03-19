@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgb(255, 255, 255);
+    background:linear-gradient(to right,rgb(110, 180, 201),white);
     top: 0px;
     left: 0px;
     margin: 0px;
@@ -30,20 +30,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.347);
+    box-shadow: -8px 10px 1px 0px rgba(0, 0, 0, 0.127);
     border-radius: 10px;
     padding: 20px 50px 50px 50px;
-    background-color: var(--SECONDARY-CLR);
+    background-color: rgb(186, 213, 218);
 }
 .logout-form {
     position: relative;
     display: flex;
     flex-direction: column;
+    box-shadow: -8px 10px 1px 0px rgba(0, 0, 0, 0.127);
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.347);
     border-radius: 10px;
     padding: 50px 50px 50px 50px;
-    background-color: var(--SECONDARY-CLR);
+    background-color: rgb(186, 213, 218);
+}
+.error-message-container{
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .login-form>h1{
     color: black;
@@ -88,13 +93,15 @@
     font-family: 'Arvo';
     margin-bottom: 10px;
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
     .username-fromauth {
             font-size: 14px;
     }
     .login-form{
         padding: 18px;
+        margin-left: 35px;
     }
+    
 }
 @media screen and (max-width:768px) {
         .username-fromauth {
@@ -110,8 +117,13 @@
                     top: -50px;
                     left: -20px;
                 }
+
         .login-form>p{
             font-size: 13px;
+        }
+        .login-page-close-button{
+            height: 18px;
+            width: 18px;
         }
 
 }

@@ -155,7 +155,7 @@ select{
         padding-bottom: 9px;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
 
 
     .order-container>h2 {

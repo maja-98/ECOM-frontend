@@ -64,7 +64,7 @@
             display: none;
         }
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
     .header-container{
         padding-left: 30px;
         padding-right: 30px;

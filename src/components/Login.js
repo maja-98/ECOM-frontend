@@ -120,7 +120,10 @@ const Login = ({handleLoginView}) => {
           <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
             <h1>Sign Up</h1>
             <p>Login If you already have an account</p>
-            {errorMessage.map(message=><small key={message} className='error-message'>* {message}</small>)}
+            <div className='error-message-container'>
+              {errorMessage.map(message=><small key={message} className='error-message'>* {message}</small>)}
+            </div>
+            
             <input className='login-input signup-input' placeholder='Username' onChange={(e) => setUsernameNew(e.target.value)} value={usernameNew} id='username' type={'text'}></input>         
             
             <input className='login-input signup-input' placeholder='Password' onChange={(e) => setPasswordNew(e.target.value)} type='password' value={passwordNew} id='password' ></input>         

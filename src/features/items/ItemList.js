@@ -1,4 +1,4 @@
-import {  faCartPlus, faEye, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faCartPlus,  faInfo, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect,  useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -122,11 +122,11 @@ const ItemList = () => {
                   <div className='add-to-cart-container'>
                     <button className='add-to-cart-button' onClick={() => handleViewItem(item.itemId)}>
                       <p className='sm-none'>View Item</p> 
-                      <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faEye}/></p>
+                      <p className='lg-none '><FontAwesomeIcon className='itempage-button-icons'  size='2x' icon={faInfo}/></p>
                     </button>
-                    {item.inventory && <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
+                    {item.inventory>0 && <button className='add-to-cart-button' onClick={() => handleAddtoCart(item.itemId,user)}>
                       <p className='sm-none'>Add to Cart</p> 
-                      <p className='lg-none'><FontAwesomeIcon  size='2x' icon={faCartPlus}/></p>
+                      <p className='lg-none '><FontAwesomeIcon  className='itempage-button-icons'  size='2x' icon={faCartPlus}/></p>
                     </button>}
                   </div>
                   

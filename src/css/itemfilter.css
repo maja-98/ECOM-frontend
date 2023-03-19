@@ -65,7 +65,7 @@
         font-size: 10px;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
     .filter-container {
             padding-left: 10px;
             padding-right: 10px;

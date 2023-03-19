@@ -185,7 +185,7 @@
         width: 100px;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
     .cart-main-container {
         padding-left: 10px;
         padding-right: 10px;

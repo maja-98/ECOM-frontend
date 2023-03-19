@@ -119,7 +119,7 @@
         justify-content: center;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and (((max-width:400px) or (max-height:400px)) or (max-height:400px)) {
     .item-list-container {
             grid-template-columns: repeat(3, 25vw);
             padding-left: var(--SMALL-CONTAINER-PADDING);
@@ -150,7 +150,14 @@
        align-items: center;
        justify-content: center;
    }
-   .add-to-cart-button>p>svg{
-    font-size: 8px;
+   .add-to-cart-button{
+    width: 25px;
+    height: 25px;
+    background: rgb(255, 255, 255);
    }
+   .add-to-cart-button>p>svg{
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+   }
+
 }

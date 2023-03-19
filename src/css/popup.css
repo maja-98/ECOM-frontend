@@ -49,7 +49,7 @@
         font-size: 15px;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and ((max-width:400px) or (max-height:400px)) {
     .overlay-message-head {
         font-size: 12px;
         }
@@ -73,10 +73,6 @@
         font-size: 10px;
 
         }
-                .login-page-close-button {
-                    width: 15px;
-                    height: 15px;
-                }
         .overlay-message-content-container{
         min-height: 40px;
         }
