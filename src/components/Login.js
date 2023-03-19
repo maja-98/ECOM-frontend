@@ -112,7 +112,7 @@ const Login = ({handleLoginView}) => {
       }
       setErrorMessage(newArray)
 
-    },[phone,usernameNew,passwordNew,addressLine1,pincode,phone])
+    },[phone,usernameNew,passwordNew,addressLine1,pincode])
   let content;
   if (signupForm){
     content = <div className='login-overlay'>
