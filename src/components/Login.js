@@ -27,6 +27,7 @@ const Login = ({handleLoginView}) => {
     const [popup,setPopUp] = useState(false)
     const [heading,setHeading] = useState('')
     const [message,setMessage] = useState('')
+    const [errorMessage,setErrorMessage] = useState([])
 
     const [login] = useLoginMutation()
     const [logout] = useSendLogoutMutation()
@@ -58,6 +59,7 @@ const Login = ({handleLoginView}) => {
         setPhone('')
         setPincode('')
         setUsernameNew('')
+        setSignupForm(false)
       }
       else{
         setPopUp(true)
@@ -88,6 +90,29 @@ const Login = ({handleLoginView}) => {
 
         }
       },[isError,error])
+    useEffect(()=>{
+      const newArray =[]
+      if (!usernameNew || usernameNew.length<4){
+        newArray.push('Username of minimum 4 letters required')
+      }
+      if (!passwordNew || passwordNew.length<8){
+        newArray.push('Password greater than 8 Characters required')
+      }
+      if (!addressLine1 || addressLine1.length<3){
+        newArray.push('Valid Address Line1 required')
+      }
+      if (!phone || isNaN(phone) || phone.length<10){
+        newArray.push('Vallid 10 digit Numeric Phone number required')
+      }
+      if (!pincode ||isNaN(pincode) || pincode.length!==6){
+        newArray.push('Valid 6 digit Numeric Pincode required')
+      }
+      if (newArray.length){
+        newArray.push('Fix all above issues to SignUp')
+      }
+      setErrorMessage(newArray)
+
+    },[phone,usernameNew,passwordNew,addressLine1,pincode,phone])
   let content;
   if (signupForm){
     content = <div className='login-overlay'>
@@ -95,6 +120,7 @@ const Login = ({handleLoginView}) => {
           <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
             <h1>Sign Up</h1>
             <p>Login If you already have an account</p>
+            {errorMessage.map(message=><small key={message} className='error-message'>* {message}</small>)}
             <input className='login-input signup-input' placeholder='Username' onChange={(e) => setUsernameNew(e.target.value)} value={usernameNew} id='username' type={'text'}></input>         
             
             <input className='login-input signup-input' placeholder='Password' onChange={(e) => setPasswordNew(e.target.value)} type='password' value={passwordNew} id='password' ></input>         
@@ -108,7 +134,7 @@ const Login = ({handleLoginView}) => {
             <input className='login-input signup-input' placeholder='Phone' onChange={(e) => setPhone(e.target.value)} type='phone' value={phone} id='phone' ></input>         
     
             <input className='login-input signup-input' placeholder='Email' onChange={(e) => setEmail(e.target.value)} type='email' value={email} id='email' ></input>     
-            <button  type='submit 'className='login-button' >Sign Up</button>    
+            {!errorMessage.length && <button  type='submit 'className='login-button' >Sign Up</button>}
             <button className='login-button' onClick={()=>setSignupForm(prev=>!prev)}>Login</button>
         </form>
     </div>
