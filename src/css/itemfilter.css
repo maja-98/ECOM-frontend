@@ -60,6 +60,10 @@
     .hidden-filters>p {
         font-size: 10px;
     }
+    .filter> a{
+        padding: 8px;
+        font-size: 10px;
+    }
 }
 @media screen and (max-width:400px) {
     .filter-container {
@@ -70,4 +74,7 @@
     .hidden-filters>p {
         font-size: 8px;
     }
+        a {
+            font-size: 8px;
+        }
 }

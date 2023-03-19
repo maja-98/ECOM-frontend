@@ -59,15 +59,15 @@
         font-family: 'Times New Roman', Times, serif
 }
 .order-ship-address-container{
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
     border-radius: 5px;
-    margin-bottom: 4px;
-    position: fixed;
+    margin-bottom: 15px;
+    left: 25%;
+    top: 5px;
     width: 300px;
-    top:230px;
-    right: 100px;
     padding: 20px;
     background-color: rgb(0, 0, 0);
     color: white;

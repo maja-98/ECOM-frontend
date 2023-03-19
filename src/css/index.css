@@ -12,6 +12,8 @@
 @import url('./orders.css');
 @import url('./login.css');
 @import url('./itemfilter.css');
+@import url('./additem.css');
+@import url('./singleitem.css');
 :root{
     --PRIMARY-CLR :#333333;
     --SECONDARY-CLR :#E1F4F3;
@@ -175,6 +177,5 @@ p{
     .lg-none{
         display: flex;
     }
+
 }
-@media screen and (max-width:400px) {}
-@media screen and (max-height:400px) {}

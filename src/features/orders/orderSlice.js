@@ -43,7 +43,7 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 {...result?.map(order=>({type:'Order',id:order._id}))}
             ])
                 return [
-                {type:'Order',id:'LIST'},...result.map(order=>({type:'Order',id:order._id}))
+                {type:'Order',id:'LIST'},...result?.map(order=>({type:'Order',id:order._id}))
             ]}
         }),
 

@@ -104,7 +104,14 @@
             font-size: 18px;
             margin-bottom: 10px;
         }
+                .login-form{
+
+                    position: relative;
+                    top: -50px;
+                    left: -20px;
+                }
         .login-form>p{
             font-size: 13px;
         }
+
 }
