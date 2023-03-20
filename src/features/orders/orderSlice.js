@@ -19,8 +19,10 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 return transformedData
             },
             providesTags : (result,error,arg) =>{ 
+                const newResult = result ?? []
                 return [
-                {type:'Order',id:'LIST'},...result.map(order=>({type:'Order',id:order._id}))
+                    
+                {type:'Order',id:'LIST'},...newResult?.map(order=>({type:'Order',id:order._id}))
             ]}
         }),
         getOrderbyUserId : builder.query({
@@ -39,9 +41,9 @@ export const extendedOrderApiSlice  = apiSlice.injectEndpoints({
                 return transformedData
             },
             providesTags : (result,error,arg) =>{ 
-
+                const newResult = result ?? []
                 return [
-                {type:'Order',id:'LIST'},...result?.map(order=>({type:'Order',id:order._id}))
+                {type:'Order',id:'LIST'},...newResult?.map(order=>({type:'Order',id:order._id}))
             ]}
         }),
 

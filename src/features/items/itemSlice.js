@@ -5,8 +5,9 @@ export const extendedItemApiSlice  = apiSlice.injectEndpoints({
         getItems : builder.query({
             query: () => '/items',
             providesTags : (result,error,arg) =>{ 
+                const newResult = result ?? []
                 return [
-                {type:'Item',id:'LIST'},...result?.map(item=>({type:'Item',id:item._id}))
+                {type:'Item',id:'LIST'},...newResult?.map(item=>({type:'Item',id:item._id}))
             ]}
         }),
 

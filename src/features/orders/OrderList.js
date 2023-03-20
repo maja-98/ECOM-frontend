@@ -8,8 +8,8 @@ import { useGetOrderbyUserIdQuery, useUpdateOrderMutation } from './orderSlice'
 const OrderList = () => {
   const [displayOrderDetails,setDisplayOrderDetails] = useState('')
   const [popup,setPopUp] = useState(false)
-  const [message,setMessage] = useState('This is a Test Message')
-  const [heading,setHeading] = useState('This is Heading')
+  const [message,setMessage] = useState('')
+  const [heading,setHeading] = useState('')
   const [status,setStatus] = useState('')
   const [searchOrderID,setSearchOrderID] = useState('')
   const [Orders,setOrders] = useState([])
@@ -64,8 +64,10 @@ const OrderList = () => {
     const newDate = new Date(date).toLocaleString()
     return newDate
   }
+  console.log(isLoading,isError)
   let content ;
   if (isLoading){
+    console.log(isLoading)
     content = (
       <div className='no-item-container '>
           <div className='flex-center-column'>

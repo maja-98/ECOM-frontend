@@ -6,7 +6,7 @@ import PopUp from '../../components/PopUp';
 import useAuth from '../../hooks/useAuth';
 import { useUpdateCartMutation } from '../cart/cartSlice';
 import ItemFilter from './ItemFilter';
-import { selectSearchCategory, selectSearchValue,selectSearchColor, selectSearchPrice, selectSort } from './itemSearchSlice';
+import { selectSearchCategory, selectSearchValue,selectSearchColor, selectSearchPrice, selectSort, selectSearchSize } from './itemSearchSlice';
 import {useGetItemsQuery} from './itemSlice'
 import SingleItem from './SingleItem';
 
@@ -16,14 +16,15 @@ import SingleItem from './SingleItem';
 const ItemList = () => {
   const {username:user} = useAuth()
   const [popup,setPopUp] = useState(false)
-  const [message,setMessage] = useState('This is a Test Message')
-  const [heading,setHeading] = useState('This is Heading')
+  const [message,setMessage] = useState('')
+  const [heading,setHeading] = useState('')
   const [viewSingleItem,setViewSingleItem] = useState({view:false,itemId:''})
   const [items,setItems] = useState([])
   const searchValue = useSelector(selectSearchValue)
   const searchCategory = useSelector(selectSearchCategory)
   const searchColor = useSelector(selectSearchColor)
   const searchPrice = useSelector(selectSearchPrice)
+  const searchSize = useSelector(selectSearchSize)
   const sort = useSelector(selectSort)
 
   const handleTogglePopUp = () =>{
@@ -51,11 +52,14 @@ const ItemList = () => {
   
   useEffect(()=>{
     const filterColor = (item) => searchColor.length ?  item.colors.filter(color => searchColor.includes(color)).some(Boolean): true
+    const filterSize = (item) => searchSize.length ?  item.sizes.filter(size => searchSize.includes(size)).some(Boolean): true
     const filterPrice = (item) => searchPrice.length ? searchPrice.map(price=>item.price<price && item.price>price-500).some(Boolean):true
     const filterCategory = (item) => searchCategory ? item.category===searchCategory : true
     const filterValue = (item) => searchValue ? item.itemname.toLowerCase().match(searchValue.toLowerCase()) : true  
+    console.log(console.log(searchSize))
     if (InitalItems ){
-      let newItems = InitalItems.filter(item => filterColor(item) && filterPrice(item) && filterCategory(item) && filterValue(item))
+      
+      let newItems = InitalItems.filter(item => filterColor(item) && filterPrice(item) && filterCategory(item) && filterValue(item) && filterSize(item))
       if (sort==='PriceUp'){
         newItems.sort((a,b)=> a.price-b.price)
       }
@@ -66,13 +70,17 @@ const ItemList = () => {
     }
 
 
-  },[searchValue,InitalItems,searchCategory,searchColor,searchPrice,sort])
+  },[searchValue,InitalItems,searchCategory,searchColor,searchPrice,searchSize,sort])
   const handleAddtoCart = async(itemId,user) =>{
     const result = await updateCart({username:user,itemId})
    
     if (result?.data?.message!==undefined){
         handlePopUpContent('Item Added to Cart','Success')
         handleTogglePopUp()
+    }
+    else{
+      handlePopUpContent('Item Not added to cart','Failed')
+      handleTogglePopUp()
     }
   }
 

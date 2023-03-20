@@ -1,6 +1,9 @@
 import { faAngleDoubleLeft, faAngleDoubleRight, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
+import PopUp from '../../components/PopUp';
+import useAuth from '../../hooks/useAuth';
+import { useUpdateCartMutation } from '../cart/cartSlice';
 import { useGetItemsbyItemIdQuery } from './itemSlice'
 
 const SingleItem = ({itemId,handleViewItem}) => {
@@ -9,7 +12,30 @@ const SingleItem = ({itemId,handleViewItem}) => {
     const [start,setStart] = useState(0)
     const [end,setEnd] = useState(3)
     const [mainImage,setMainImage] = useState('')
-
+    const [popup,setPopUp] = useState(false)
+    const [message,setMessage] = useState('')
+    const [heading,setHeading] = useState('')
+    const {username} = useAuth()
+    const handleTogglePopUp = () =>{
+      setPopUp((prevState) => !prevState)
+    }
+    const handlePopUpContent = (message,heading) => {
+        setHeading(heading)
+        setMessage(message)
+    }
+    const handleAddtoCart = async(itemId,user) =>{
+      const result = await updateCart({username:user,itemId})
+    
+      if (result?.data?.message!==undefined){
+          handlePopUpContent('Item Added to Cart','Success')
+          handleTogglePopUp()
+      }
+      else{
+         handlePopUpContent('Item Not added to cart','Failed')
+          handleTogglePopUp()
+      }
+    }
+    const [updateCart] = useUpdateCartMutation()
     useEffect(()=>{
       if (item){
         setDisplayImages(item.images.slice(0,3))
@@ -85,7 +111,7 @@ const SingleItem = ({itemId,handleViewItem}) => {
             
           </div>
             <div className='single-itempage-buttons'>
-              <button>Add to Cart</button>
+              <button onClick={()=>handleAddtoCart(item.itemId,username)}>Add to Cart</button>
               <button onClick={handleViewItem}>View All Items</button>
             </div>
 
@@ -93,7 +119,11 @@ const SingleItem = ({itemId,handleViewItem}) => {
     </div>
   }
   return (
-    content
+    <>
+    {content}
+    {popup && <PopUp  message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
+    </>
+    
   )
 }
 

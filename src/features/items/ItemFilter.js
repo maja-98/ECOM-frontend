@@ -11,10 +11,12 @@ const ItemFilter = () => {
   const [colorDropDown,setColorDropDown] = useState(false)
   const [categoriesDropDown,setCategoriesDropDown] = useState(false)
   const [priceDropDown,setPriceDropDown] = useState(false)
+  const [sizeDropDown,setSizeDropDown] = useState(false)
   const [sortDropDown,setSortDropDown] = useState(false)
   const searchColor = useSelector(selectSearchColor)
   const searchPrice = useSelector(selectSearchPrice)
   const searchCategory = useSelector(selectSearchCategory)
+  const searchSize = useSelector(selectSearchPrice)
   const sort = useSelector(selectSort)
   const {role} = useAuth()
 
@@ -35,6 +37,18 @@ const ItemFilter = () => {
                 {priceDropDown && <div className='hidden-filters'>
                     <p onClick={() =>dispatch(setSearch({searchPrice:'500'}))}>{'<500'} {searchPrice.includes('500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                     <p onClick={() =>dispatch(setSearch({searchPrice:'1000'}))}>500-1000 {searchPrice.includes('1000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchPrice:'1500'}))}>1000-1500 {searchPrice.includes('1500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchPrice:'2000'}))}>1500-2000 {searchPrice.includes('2000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                </div>}
+            </div>
+            <div className='filter'>
+                <button className='filter-btn' onClick={()=>setSizeDropDown(prev=>!prev)}>Size <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
+
+                {sizeDropDown && <div className='hidden-filters'>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'XL'}))}>{'XL'} {searchSize.includes('500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'L'}))}>L {searchSize.includes('1000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'M'}))}>M {searchSize.includes('1500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'S'}))}>S {searchSize.includes('2000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                 </div>}
             </div>
             <div className='filter lg-none'>

@@ -1,6 +1,7 @@
 import { faHourglass, faSadTear, faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
+import PopUp from '../../components/PopUp'
 import useAuth from '../../hooks/useAuth'
 import { useAddNewOrderMutation } from '../orders/orderSlice'
 import { useGetUserbyIdQuery } from '../users/userSlice'
@@ -30,12 +31,20 @@ const CartView = () => {
     const [username,setUsername] = useState('')
     const [pincode,setPincode] = useState('')
     const [totalPrice,setTotalPrice] = useState(0)
+    const [message,setMessage] = useState('')
+    const [heading,setHeading] = useState('')
+    const [popup,setPopUp] = useState(false)
+    const handleTogglePopUp = () =>{
+      setPopUp((prevState) => !prevState)
+    }
+
     useEffect(()=>{
       setUsername(user?.username ?? '')
       setShippingAddress1(user?.addressLine1 ?? '')
       setShippingAddress2(user?.addressLine2 ?? '')
       setPhone(user?.phone ?? '')
       setEmail(user?.email ?? '')
+      setPincode(user?.pincode ?? '')
       
     },[user])
     useEffect (()=>{
@@ -52,14 +61,16 @@ const CartView = () => {
     },[Cart])
     const handleUpdateQuantity = async({itemId,newQuantity}) => {
       const status = await updateCart({username:user?.username,itemId,newQuantity})
-      if (status?.error){
-        
+      if (status?.error?.data?.message){
+        setHeading('Error')
+        setMessage(status?.error?.data?.message)
+        setPopUp(true)
       }
     }
     
-    const handleCheckOut = ()=>{
+    const handleCheckOut = async ()=>{
         
-        createOrder({   
+       const order =  await createOrder({   
 
             "items": Cart?.itemObjects?.map(item=>{return {"id":item._id, "ordQty":item.cartQuantity}}),
             "user": userId,
@@ -71,7 +82,19 @@ const CartView = () => {
             "shippingEmail":email,
             totalPrice
         })
-        clearCart({username:user?.username})
+        if (order?.error?.data?.message){
+          setMessage(order?.error?.data?.message)
+          setHeading("Error")
+          setPopUp(true)
+        }
+        else if (order?.data?.message){
+          setMessage("Order Placed Successfully")
+          setHeading("Success")
+          clearCart({username:user?.username})
+          setPopUp(true)
+        }
+        
+        
     }
 
     let content;
@@ -205,7 +228,10 @@ const CartView = () => {
    
 
   return (
-    content
+    <>
+    {content}
+    {popup && <PopUp  message={message} heading={heading} handleTogglePopUp={handleTogglePopUp}/>}
+    </>
   )
   }
 
