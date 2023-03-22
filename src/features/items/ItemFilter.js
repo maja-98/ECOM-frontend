@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
-import { selectSearchCategory, selectSearchColor, selectSearchPrice, selectSort, setSearch } from './itemSearchSlice'
+import { selectSearchCategory, selectSearchColor, selectSearchPrice, selectSearchSize, selectSort, setSearch } from './itemSearchSlice'
 
 const ItemFilter = () => {
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const ItemFilter = () => {
   const searchColor = useSelector(selectSearchColor)
   const searchPrice = useSelector(selectSearchPrice)
   const searchCategory = useSelector(selectSearchCategory)
-  const searchSize = useSelector(selectSearchPrice)
+  const searchSize = useSelector(selectSearchSize)
   const sort = useSelector(selectSort)
   const {role} = useAuth()
 
@@ -45,10 +45,10 @@ const ItemFilter = () => {
                 <button className='filter-btn' onClick={()=>setSizeDropDown(prev=>!prev)}>Size <FontAwesomeIcon icon={faCaretDown} size='sm'/></button>
 
                 {sizeDropDown && <div className='hidden-filters'>
-                    <p onClick={() =>dispatch(setSearch({searchSize:'XL'}))}>{'XL'} {searchSize.includes('500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
-                    <p onClick={() =>dispatch(setSearch({searchSize:'L'}))}>L {searchSize.includes('1000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
-                    <p onClick={() =>dispatch(setSearch({searchSize:'M'}))}>M {searchSize.includes('1500') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
-                    <p onClick={() =>dispatch(setSearch({searchSize:'S'}))}>S {searchSize.includes('2000') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'XL'}))}>XL {searchSize.includes('XL') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'L'}))}>L {searchSize.includes('L') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'M'}))}>M {searchSize.includes('M') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
+                    <p onClick={() =>dispatch(setSearch({searchSize:'S'}))}>S {searchSize.includes('S') && <FontAwesomeIcon icon={faDotCircle} size='xs'/>}</p>
                 </div>}
             </div>
             <div className='filter lg-none'>

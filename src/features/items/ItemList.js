@@ -56,7 +56,6 @@ const ItemList = () => {
     const filterPrice = (item) => searchPrice.length ? searchPrice.map(price=>item.price<price && item.price>price-500).some(Boolean):true
     const filterCategory = (item) => searchCategory ? item.category===searchCategory : true
     const filterValue = (item) => searchValue ? item.itemname.toLowerCase().match(searchValue.toLowerCase()) : true  
-    console.log(console.log(searchSize))
     if (InitalItems ){
       
       let newItems = InitalItems.filter(item => filterColor(item) && filterPrice(item) && filterCategory(item) && filterValue(item) && filterSize(item))

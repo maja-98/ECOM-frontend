@@ -1,4 +1,4 @@
-import { faAngleDoubleLeft, faAngleDoubleRight, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleLeft, faAngleDoubleRight, faSpinner, faTriangleExclamation, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import PopUp from '../../components/PopUp';
@@ -100,8 +100,8 @@ const SingleItem = ({itemId,handleViewItem}) => {
              {item.images.length>3 &&<FontAwesomeIcon icon={faAngleDoubleRight} onClick={()=>handleArrowClick('right')} className='arrow-icons'/>}
           </div>
         </div>
-        <div className='item-details-container flex-center-column'>
-          <div className='item-details'>
+        <div className='single-item-details-container flex-center-column'>
+          <div className='single-item-details'>
             <p className='brand'>{item.brand}</p>
             <h1 className='title'>{item.itemname}</h1>
             <p className='price'>{item.price} ₹</p>
@@ -111,7 +111,7 @@ const SingleItem = ({itemId,handleViewItem}) => {
             
           </div>
             <div className='single-itempage-buttons'>
-              <button onClick={()=>handleAddtoCart(item.itemId,username)}>Add to Cart</button>
+              {item.inventory>0 ? <button onClick={()=>handleAddtoCart(item.itemId,username)}>Add to Cart</button>:<button disabled style={{border:'0px'}}>Out of Stock <FontAwesomeIcon icon={faWarning}/></button>}
               <button onClick={handleViewItem}>View All Items</button>
             </div>
 

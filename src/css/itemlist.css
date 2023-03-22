@@ -32,15 +32,22 @@
 .item-details-container{
     display: flex;
     flex-direction: column;
-    gap: 4px;
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
+    gap: 5px
 }
 .item-details{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+}
+.item-image-container{
+    width: 60%;
+    height: 60%;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 .item-image{
     border-radius: 5px;;
@@ -50,12 +57,14 @@
     object-fit: cover;
 }
 .item-price{
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bolder;
+    font-family: 'Rajdhani';
 }
 .add-to-cart-container{
     display: flex;
     justify-content: flex-end;
+    gap:5px;
 }
 .quanity-input{
     width: 40px;
@@ -82,6 +91,14 @@
     align-items: center;
     gap:4px;
 }
+.item-detail-header>h5{
+    font-size: 16px;
+    font-family: 'Libre Baskerville';
+}
+.item-detail-header>h6 {
+    font-size: 15px;
+    color: rgb(56, 53, 53);
+}
 @media screen and (max-width:768px) {
     .item-list-container {
         grid-template-columns: repeat(3, 29vw);
@@ -91,7 +108,6 @@
         gap: 20px;
     }
     .item-details-container {
-        gap: 4px;
         padding-left: 5px;
         padding-right: 5px;
     }
@@ -119,7 +135,7 @@
         justify-content: center;
     }
 }
-@media screen and (((max-width:400px) or (max-height:400px)) or (max-height:400px)) {
+@media screen and (((max-width:400px) or (max-height:400px)) ) {
     .item-list-container {
             grid-template-columns: repeat(3, 25vw);
             padding-left: var(--SMALL-CONTAINER-PADDING);
@@ -128,9 +144,12 @@
             gap: 20px;
         }
    .item-details-container {
-       gap: 4px;
        padding-left: 5px;
        padding-right: 5px;
+   }
+   .item-image-container {
+       width: 80%;
+       height: 80%;
    }
         .item-detail-header>h5 {
             font-size: 9px;

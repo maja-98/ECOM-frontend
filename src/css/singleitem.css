@@ -8,13 +8,13 @@
     display:grid;
     grid-template-columns: 2fr 2fr;
 }
-.item-details{
+.single-item-details{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap:10px
 }
-.item-details-container{
+.single-item-details-container{
     gap:20px
 }
 .brand{
@@ -91,12 +91,12 @@
             padding: 10px;
         }
     
-        .item-details {
+        .single-item-details {
             gap: 5px;
            
         }
     
-        .item-details-container {
+        .singe-item-details-container {
             gap: 12px;
         }
     
