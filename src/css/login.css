@@ -93,6 +93,18 @@
     font-family: 'Arvo';
     margin-bottom: 10px;
 }
+.persist-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-checkbox{
+    width: 20px;
+    margin-right: 5px;
+}
+.login-persist{
+    color: black;
+}
 @media screen and ((max-width:400px) or (max-height:400px)) {
     .username-fromauth {
             font-size: 14px;
@@ -125,5 +137,8 @@
             height: 18px;
             width: 18px;
         }
+    .login-checkbox {
+        width: 15px;
+    }
 
 }

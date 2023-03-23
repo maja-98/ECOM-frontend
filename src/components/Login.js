@@ -8,6 +8,7 @@ import { useAddNewUserMutation } from '../features/users/userSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import PopUp from './PopUp'
+import usePersist from '../hooks/usePersist'
 
 
 const Login = ({handleLoginView}) => {
@@ -28,6 +29,7 @@ const Login = ({handleLoginView}) => {
     const [heading,setHeading] = useState('')
     const [message,setMessage] = useState('')
     const [errorMessage,setErrorMessage] = useState([])
+    const [persist,setPersist] = usePersist()
 
     const [login] = useLoginMutation()
     const [logout] = useSendLogoutMutation()
@@ -45,6 +47,7 @@ const Login = ({handleLoginView}) => {
         navigate('/')
       }
     }
+    const handleToggle = () => setPersist(prev => !prev)
 
     const handleCreateUser =async (e) => {
       e.preventDefault()
@@ -166,7 +169,21 @@ const Login = ({handleLoginView}) => {
                       <input className='login-input'  placeholder='Username' onChange={(e) => setUsername(e.target.value)} value={username} id='username' type={'text'}></input>            
                       <input  className='login-input' placeholder='Password' id='password' onChange={(e) => setPassword(e.target.value)} value={password} type={'password'}></input>
                       <button className='login-button' onClick={handleSubmit}>Login</button>
-                      <button className='login-button' onClick={()=>setSignupForm(prev=>!prev)}>SignUp</button>    
+                      <button className='login-button' onClick={()=>setSignupForm(prev=>!prev)}>SignUp</button>  
+                      <div className='persist-container'>
+                        <input
+                                type="checkbox"
+                                className="login-checkbox"
+                                id="persist"
+                                onChange={handleToggle}
+                                checked={persist}
+                            />
+                          <label htmlFor="persist" className="login-persist">
+                            Trust This Device
+                        </label>
+                      </div>  
+
+
                 </div>
   
 

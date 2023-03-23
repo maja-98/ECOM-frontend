@@ -6,6 +6,7 @@ import Login from './Login'
 import useAuth from '../hooks/useAuth'
 import {setSearch } from '../features/items/itemSearchSlice'
 import { useDispatch } from 'react-redux'
+import usePersist from '../hooks/usePersist'
 
 
 
@@ -19,15 +20,16 @@ const Header = () => {
   const handleSearch = (e) =>{
     dispatch(setSearch({searchValue:e.target.value}))
   }
+  const [persist] = usePersist()
   const {username} = useAuth()
   useEffect(()=>{
-    if (!username){
+    if (!persist){
       setloginView(true)
     }
     else{
       setloginView(false)
     }
-  },[username])
+  },[persist])
   return (
     <div className='header-container'>
       <h1 className='logo' onClick={()=>navigate('/')}>Dubai Pardhas</h1>
@@ -38,9 +40,9 @@ const Header = () => {
           {categoryListShow===false ? <FontAwesomeIcon className='checron-icon'  icon={faChevronDown} /> : <FontAwesomeIcon className='checron-icon' icon={faChevronUp}/>}
         </div>
         {categoryListShow && <div className='flex-center-column category-items'>
-          <p onClick={() =>dispatch(setSearch({searchCategory:''}))}>All</p>
-          <p onClick={() =>dispatch(setSearch({searchCategory:'Pardha'}))}>Pardha</p>
-          <p onClick={() =>dispatch(setSearch({searchCategory:'Maxi'}))}>Maxi</p>
+          <p onClick={() => {navigate('/');dispatch(setSearch({searchCategory:''}))}}>All</p>
+          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Pardha'}))}}>Pardha</p>
+          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Maxi'}))}}>Maxi</p>
         </div>}
       </div>
 

@@ -4,7 +4,10 @@ const itemSearchSlice = createSlice({
     name:'search',
     initialState: {searchValue: '',searchCategory:'',searchColor:[],searchPrice:[],sort:'',searchSize:[]}    ,
     reducers: {
-        setSearch: (state,action) => {   
+        
+        setSearch: (state,action) => { 
+
+            
             const {searchValue,searchCategory,searchColor,searchPrice,searchSize,sort} = action.payload
             state.searchValue = searchValue ?? state.searchValue
             state.searchCategory = searchCategory ?? state.searchCategory

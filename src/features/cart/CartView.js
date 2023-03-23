@@ -18,7 +18,6 @@ const CartView = () => {
     isError,
     error
    } = useGetCartQuery({username:usernameFromAuth})
-
     const [clearCart] = useClearCartMutation()
     const [createOrder,{isLoading:isCreateOrderLoading}] = useAddNewOrderMutation()
     const [updateCart, {
@@ -50,10 +49,16 @@ const CartView = () => {
     useEffect (()=>{
       
       if (Cart?.itemObjects?.length){
-        const totalPriceNew =  Array.from(Cart?.itemObjects)?.reduce((total,value)=>{
-            
+        let totalPriceNew;
+        if (Cart?.itemObjects?.length>1){
+          totalPriceNew =  Array.from(Cart?.itemObjects)?.reduce((total,value)=>{
                     return {...total,itemname:'Total',cartQuantity:1,price:total?.price*total?.cartQuantity+value?.price*value?.cartQuantity}
                   }).price
+        }
+        else{
+          totalPriceNew = Cart.itemObjects[0].price * Cart.itemObjects[0].cartQuantity
+        }
+        
         
         setTotalPrice(totalPriceNew)
       }
@@ -71,7 +76,6 @@ const CartView = () => {
     const handleCheckOut = async ()=>{
         
        const order =  await createOrder({   
-
             "items": Cart?.itemObjects?.map(item=>{return {"id":item._id, "ordQty":item.cartQuantity}}),
             "user": userId,
             "shippingName": username,
@@ -92,9 +96,7 @@ const CartView = () => {
           setHeading("Success")
           clearCart({username:user?.username})
           setPopUp(true)
-        }
-        
-        
+        }        
     }
 
     let content;
@@ -123,16 +125,14 @@ const CartView = () => {
       content =  Cart?.items.length > 0 ?    <div className='cart-main-container'>
         <div className='main-container-cart'>
           <h2>Cart</h2>
-          <div className='cart-items-container'>
-            
+          <div className='cart-items-container'>          
             {Cart?.itemObjects?.map(item =>{
               return ( 
                 <li className='cart-items' key={item._id}> 
                   <div className='cart-image-container'>
                     {item.images.map((image,i) => {
                       return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
-                    })}
-                    
+                    })}                    
                   </div>
                   <div className='cart-items-price-container'>
                     <h4>{item.itemname}</h4>
@@ -155,20 +155,17 @@ const CartView = () => {
               )
             }) 
             }
-            <div>
-  
-              
+            <div>              
             </div>
           </div>
           <div className='total-price-cart-container'>
-              {<p>Total: {totalPrice}₹</p>}
+              {isUpdateCartLoading===false?<p>Total: {totalPrice}₹</p>:<p><FontAwesomeIcon icon={faSpinner} spin></FontAwesomeIcon></p>}
             </div>
         </div>  
         <div className='shipping-form'>
           <h2>Shipping Address</h2>
           <div className='form-input-container'>
             <label htmlFor='name'>Name</label>
-
             <div className='flex-center-column '>
               <input className={!username.trim()===false?'no-error':'error-validation'} value={username} onChange={(e) =>setUsername(e.target.value)} id='name'></input>
               {!username.trim()===true && <small className='error-message'>Username required</small>}
@@ -208,11 +205,8 @@ const CartView = () => {
           </div>
           <div className='cart-btns'>
             <button className='clear-cart-button' onClick={()=>clearCart({username:user?.username})} >Clear Cart</button>
-
             <button className='checkout-button' disabled={!shippingAddress1.trim()||!phone.trim()||!username.trim()||!pincode.trim()} onClick={handleCheckOut}>{(!isUpdateCartLoading||!isCreateOrderLoading) ? 'CheckOut':<FontAwesomeIcon icon={faHourglass}/>}</button>
           </div>
-
-
         </div>
 
 

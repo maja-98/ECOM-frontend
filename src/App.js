@@ -13,8 +13,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<LayOut/>}>
-          <Route index element={<Home/>}/>
+          
           <Route element={<PersistLogin/>}>
+            <Route index element={<Home/>}/>
             <Route path='add'>
               <Route index element={<AddItem/>}/>
             </Route>
