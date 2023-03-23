@@ -75,9 +75,13 @@ const Login = ({handleLoginView}) => {
               navigate('/')
               handleLoginView()
           } catch (err) {
-              if (err.data.message==='Unauthorized'){
+            
+              if (err?.data?.message==='Unauthorized'){
                 handlePopUpContent("Invalid Username/Password","Error")
-              }else{
+              }else if (err?.error){
+                handlePopUpContent ("Service not Available","Error")
+              }
+              else{
                 handlePopUpContent (err.data.message,"Error")
               }
               

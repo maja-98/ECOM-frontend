@@ -64,10 +64,8 @@ const OrderList = () => {
     const newDate = new Date(date).toLocaleString()
     return newDate
   }
-  console.log(isLoading,isError)
   let content ;
   if (isLoading){
-    console.log(isLoading)
     content = (
       <div className='no-item-container '>
           <div className='flex-center-column'>

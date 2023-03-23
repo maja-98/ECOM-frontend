@@ -64,7 +64,7 @@ const PersistLogin = () => {
           <div className='flex-center-column'>
             <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
             <p>Error</p>
-            <p>{error.data.message}</p>
+            <p>{error?.error!==undefined?<p>Service Not Available</p>:<p>{error.data.message}</p>}</p>
           </div>
         </div>
         )
