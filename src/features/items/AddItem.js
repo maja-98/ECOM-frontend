@@ -64,7 +64,6 @@ const AddItem = () => {
         
       }else{
           let imageLocations = await Promise.all(images.map(image=>  uploadToS3({file:image.file})))
-
           console.log(imageLocations)
           const result = await createItem({itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
           if (result?.data?.message){
