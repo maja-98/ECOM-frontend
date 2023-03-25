@@ -63,11 +63,9 @@ const AddItem = () => {
         setPopup(true)
         
       }else{
-        let imageLocations =[]
-        images.forEach( ({file})=>uploadToS3({file}).then(result=>{
-          imageLocations.push(result)
-        }).catch(err=>console.log(err)))
-        setTimeout(async ()=>{
+          let imageLocations = await Promise.all(images.map(image=>  uploadToS3({file:image.file})))
+
+          console.log(imageLocations)
           const result = await createItem({itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
           if (result?.data?.message){
             setMessage(result?.data?.message)
@@ -88,10 +86,10 @@ const AddItem = () => {
           }
           setLoading(false)
           setPopup(true)  
-        },images.length*2000)
+        }
         
       }
-    }
+    
     let content;
     if (loading){
       content =    <div className='no-item-container '>
