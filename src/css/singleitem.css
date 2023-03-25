@@ -4,7 +4,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    background:linear-gradient(to right,rgb(68, 67, 67),white);
+    background:linear-gradient(to right,rgb(184, 184, 184),white);
     display:grid;
     grid-template-columns: 2fr 2fr;
 }
@@ -57,7 +57,7 @@
     cursor: pointer;
 }
 .arrow-icons{
-    color: rgb(190, 179, 179);
+    color: rgb(255, 255, 255);
     font-size: 30px;
     padding: 20px;
 }

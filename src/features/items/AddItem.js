@@ -13,7 +13,7 @@ import { useAddNewItemMutation,useUpdateItemMutation,useDeleteItemMutation } fro
 const AddItem = () => {
     const {role} = useAuth()
     const navigate = useNavigate()
-    let item = useLocation().state
+    const [item,setItem]= useState(useLocation().state)
 
     
     const [itemname,setItemname] = useState(item?.itemname??'')
@@ -140,7 +140,15 @@ const AddItem = () => {
        if (result?.data){
           setMessage(result?.data)
           setHeading('Success')
-          item =null
+          setItem(null)
+          setItemname('')
+          setCategory('')
+          setBrand('')
+          setPrice('')
+          setInventory('')
+          setSizes([])
+          setColors([])
+          setImages([])
        }
        else if (result?.error?.data?.message){
             setMessage(result?.error?.data?.message)
@@ -173,10 +181,9 @@ const AddItem = () => {
           <div className='add-item-input-subcontainer'>
             <select type={'text'} value={category} onChange={(e) => setCategory(e.target.value)} className='add-item-select'>
               <option value="">Select</option>
-              <option value="Maxi">Maxi</option>
-              <option value="Pardha">Pardha</option>
-              <option value="Shall">Shall</option>
-              <option value="Top">Top</option>
+              <option value="Cap">Cap</option>
+              <option value="Pant">Pant</option>
+              <option value="Shirt">Shirt</option>
             </select>
             {!category && <small className='error-message'>This Field is  Required</small>}
           </div>
@@ -205,13 +212,13 @@ const AddItem = () => {
         <div className='add-item-input-num-container'>
           <label className='add-item-label'>Sizes</label>
           <div className='add-item-input-subcontainer'>
-            <CustomSelect handleSetState={handleSetSizes} valueList={['XL','XXL','S','M','XS'].sort()} currentState={sizes}/>
+            <CustomSelect handleSetState={handleSetSizes} valueList={['XL','L','S','M'].sort()} currentState={sizes}/>
           </div>
         </div>
         <div className='add-item-input-num-container'>
           <label className='add-item-label'>Colors</label>
           <div className='add-item-input-subcontainer'>
-            <CustomSelect handleSetState={handleSetColors} valueList={['Blue','Black','Green','Maroon'].sort()} currentState={colors}/>
+            <CustomSelect handleSetState={handleSetColors} valueList={['Blue','Black','White'].sort()} currentState={colors}/>
           </div>
         </div>
         <div className='add-item-input-image-container'>

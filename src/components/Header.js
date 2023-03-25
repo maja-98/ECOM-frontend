@@ -32,7 +32,7 @@ const Header = () => {
   },[persist])
   return (
     <div className='header-container'>
-      <h1 className='logo' onClick={()=>navigate('/')}>Dubai Pardhas</h1>
+      <h1 className='logo' onClick={()=>navigate('/')}>Men's Boutique</h1>
      
       <div className='categories-list-container sm-none'>
         <div onClick={()=>setCategoryListShow(prevState => !prevState)} className='flex-center-row pointer'>
@@ -41,8 +41,9 @@ const Header = () => {
         </div>
         {categoryListShow && <div className='flex-center-column category-items'>
           <p onClick={() => {navigate('/');dispatch(setSearch({searchCategory:''}))}}>All</p>
-          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Pardha'}))}}>Pardha</p>
-          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Maxi'}))}}>Maxi</p>
+          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Shirt'}))}}>Shirt</p>
+          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Pant'}))}}>Pant</p>
+          <p onClick={() =>{navigate('/');dispatch(setSearch({searchCategory:'Cap'}))}}>Cap</p>
         </div>}
       </div>
 

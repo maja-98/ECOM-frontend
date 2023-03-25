@@ -51,7 +51,7 @@
     padding-top: 5px;
 }
 .item-image{
-    border-radius: 5px;;
+    border-radius: 5px;
     width: 100%;
     aspect-ratio: 1/1;
     height: 100%;
@@ -94,7 +94,7 @@
 }
 .item-detail-header>h5{
     font-size: 16px;
-    font-family: 'Libre Baskerville';
+    font-family: 'Alkatra';
 }
 .item-detail-header>h6 {
     font-size: 15px;
@@ -142,7 +142,7 @@
 }
 @media screen and (((max-width:400px) or (max-height:400px)) ) {
     .item-list-container {
-            grid-template-columns: repeat(3, 25vw);
+            grid-template-columns: repeat(3, 30vw);
             padding-left: var(--SMALL-CONTAINER-PADDING);
             padding-right: var(--SMALL-CONTAINER-PADDING);
             padding-top: 20px;
@@ -183,5 +183,21 @@
     font-size: 13px;
     color: rgb(0, 0, 0);
    }
+.item-detail-header>h5 {
+    font-size: 8PX;
+}
 
+.item-detail-header>h6 {
+    font-size: 6px;
+}
+.item-price{
+    font-size: 8px;
+}
+.add-to-cart-container>button{
+    width: 15px;
+    height: 15px;
+}
+.add-to-cart-container>button>p>svg{
+    font-size: 10px;
+}
 }

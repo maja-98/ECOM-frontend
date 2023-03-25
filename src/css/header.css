@@ -52,6 +52,9 @@
 .nav-links>h4,.cart-btn,.logo{
     cursor: pointer;
 }
+.logo{
+    font-family: 'Delicious Handrawn';
+}
 .username-mobile-icon{
     background-color: rgb(253, 253, 253);
     width: 30px;

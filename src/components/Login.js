@@ -164,7 +164,7 @@ const Login = ({handleLoginView}) => {
                 
                 <div className='login-form'>
                       <button className='login-page-close-button' onClick={handleLoginView}><FontAwesomeIcon size='2x'  icon={faClose}/></button>
-                      <h1>Dubai Pardha Palace</h1>
+                      <h1>Men's Boutique</h1>
                       <p>Login/SignUp to use Application</p>
                       <input className='login-input'  placeholder='Username' onChange={(e) => setUsername(e.target.value)} value={username} id='username' type={'text'}></input>            
                       <input  className='login-input' placeholder='Password' id='password' onChange={(e) => setPassword(e.target.value)} value={password} type={'password'}></input>

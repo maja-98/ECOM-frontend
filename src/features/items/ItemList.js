@@ -98,13 +98,17 @@ const ItemList = () => {
   }
   else if (isError){
    content = (
+    <>
+    <ItemFilter/>
    <div className='no-item-container '>
       <div className='flex-center-column'>
         <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
         <p>Error</p>
-        {error?.error!==undefined?<p>Service Not Available</p>:<p>{error}</p>}
+        {error?.error!==undefined?<p>Service Not Available</p>:<p>{error.data.message}</p>}
       </div>
     </div>
+    </>
+
    )
   }
   else{
