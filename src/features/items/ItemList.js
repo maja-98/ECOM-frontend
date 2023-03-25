@@ -1,7 +1,8 @@
-import {  faCartPlus,  faInfo, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faCartPlus,  faInfo, faPen, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect,  useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import PopUp from '../../components/PopUp';
 import useAuth from '../../hooks/useAuth';
 import { useUpdateCartMutation } from '../cart/cartSlice';
@@ -14,12 +15,13 @@ import SingleItem from './SingleItem';
 
 
 const ItemList = () => {
-  const {username:user} = useAuth()
+  const {username:user,role} = useAuth()
   const [popup,setPopUp] = useState(false)
   const [message,setMessage] = useState('')
   const [heading,setHeading] = useState('')
   const [viewSingleItem,setViewSingleItem] = useState({view:false,itemId:''})
   const [items,setItems] = useState([])
+  const navigate = useNavigate()
   const searchValue = useSelector(selectSearchValue)
   const searchCategory = useSelector(selectSearchCategory)
   const searchColor = useSelector(selectSearchColor)
@@ -127,6 +129,9 @@ const ItemList = () => {
                     <p className='item-price'>₹{item.price} </p>
                   </div>
                   <div className='add-to-cart-container'>
+                    {role==='Admin' && <button className=' add-to-cart-button edit-item-button' onClick={() => navigate('/add',{state:item})}>
+                      <p ><FontAwesomeIcon className='itempage-button-icons'  size='1x' icon={faPen}/></p>
+                    </button>}
                     <button className='add-to-cart-button' onClick={() => handleViewItem(item.itemId)}>
                       <p className='sm-none'>View Item</p> 
                       <p className='lg-none '><FontAwesomeIcon className='itempage-button-icons'  size='2x' icon={faInfo}/></p>

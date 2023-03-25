@@ -31,6 +31,7 @@
 .add-item-input-subcontainer{
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
 }
 .add-item-input,.add-item-input[type='number'],.add-item-select{
     background-color: aliceblue;
@@ -77,4 +78,9 @@
 }
 .add-item-single-image-container>button{
     width: 30px;
+}
+.submit-buttons>button:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
 }

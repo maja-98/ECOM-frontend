@@ -1,32 +1,44 @@
 import { faSpinner, faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import PopUp from '../../components/PopUp'
 import uuid4 from 'uuid4'
 import CustomSelect from '../../components/CustomSelect'
 import useAuth from '../../hooks/useAuth'
 import { uploadToS3 } from '../aws/AWSHandler'
-import { useAddNewItemMutation } from './itemSlice'
+import { useAddNewItemMutation,useUpdateItemMutation,useDeleteItemMutation } from './itemSlice'
 
 
 const AddItem = () => {
     const {role} = useAuth()
     const navigate = useNavigate()
-    const [itemname,setItemname] = useState('')
-    const [price,setPrice] = useState('')
-    const [category,setCategory] = useState('')
-    const [brand,setBrand] = useState('')
-    const [colors,setColors] = useState([])
+    let item = useLocation().state
+
+    
+    const [itemname,setItemname] = useState(item?.itemname??'')
+    const [price,setPrice] = useState(item?.price??'')
+    const [category,setCategory] = useState(item?.category??'')
+    const [brand,setBrand] = useState(item?.brand??'')
+    const [colors,setColors] = useState(item?.colors??[])
     const [images,setImages] = useState([])
-    const [inventory,setInventory] = useState([])
-    const [sizes,setSizes] = useState([])
+    const [inventory,setInventory] = useState(item?.inventory??'')
+    const [sizes,setSizes] = useState(item?.sizes??[])
     const [popup,setPopup] = useState(false)
     const [message,setMessage] = useState('')
     const [heading,setHeading] = useState('')
     const [loading,setLoading] = useState(false)
     const [createItem] = useAddNewItemMutation()
-
+    const [updateItem] = useUpdateItemMutation()
+    const [deleteItem] = useDeleteItemMutation()
+    useEffect(()=>{
+      if (item?.images?.objectURL===undefined){
+        const newImages = []
+        item.images.forEach(element => {
+          newImages.push({id:uuid4(),objectURL:element})   
+        });
+        setImages(newImages)
+    }},[item])
 
     const handleTogglePopUp = () =>{
       setPopup((prevState) => !prevState)
@@ -64,7 +76,6 @@ const AddItem = () => {
         
       }else{
           let imageLocations = await Promise.all(images.map(image=>  uploadToS3({file:image.file})))
-          console.log(imageLocations)
           const result = await createItem({itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
           if (result?.data?.message){
             setMessage(result?.data?.message)
@@ -87,19 +98,69 @@ const AddItem = () => {
           setPopup(true)  
         }
         
-      }
+    }
+    const handleUpdateItem = async()=>{
+      setLoading(true)
+      if (!itemname || !price || !category || !brand || !images.length){
+        setHeading('Failed')
+        setMessage('Fill All Mandatory Fields & Try Again')
+        setLoading(false)
+        setPopup(true)
+        
+      }else{
+          let imageLocations = await Promise.all(images.map(image=>  {
+            console.log(image.objectURL.slice(0,4))
+            if(image.objectURL.slice(0,4)==='blob'){
+              return uploadToS3({file:image.file})
+            }
+            else{
+              return image.objectURL
+            }
+            
+          }))
+          console.log(imageLocations)
+          const result = await updateItem({id:item._id,itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
+          if (result?.data?.message){
+            setMessage(result?.data?.message)
+            setHeading('Success')
+          }
+          else if (result?.error?.data?.message){
+            setMessage(result?.error?.data?.message)
+            setHeading('Error')
+          
+          }
+          setLoading(false)
+          setPopup(true)  
+        }
+        
+    }
+    const handleDeleteItem =async()=>{
+      setLoading(true)
+       const result = await deleteItem({id:item._id})
+       if (result?.data){
+          setMessage(result?.data)
+          setHeading('Success')
+          item =null
+       }
+       else if (result?.error?.data?.message){
+            setMessage(result?.error?.data?.message)
+            setHeading('Error')
+       }
+        setLoading(false)
+        setPopup(true)  
+    }
     
     let content;
     if (loading){
       content =    <div className='no-item-container '>
       <div className='flex-center-column'>
         <FontAwesomeIcon icon={faSpinner} spin size='3x'/>
-        <p>Creating Item...</p>
+        <p>{item ===null ? 'Creating Item...':'Updating Item...'}</p>
       </div>
     </div>
     }else{
     content = role==="Admin" ? <div className='add-item-form'>
-        <h2>Add Item</h2>
+        <h2>{item!==null ? 'Edit Item' : 'Add Item'}</h2>
         <div className='add-item-input-container'>
           <label className='add-item-label'>Item Name</label>
           <div className='add-item-input-subcontainer'>
@@ -161,8 +222,8 @@ const AddItem = () => {
           </div>
           <div className='add-items-images-display'>
             {images.map(image=>{
-              return <div className='add-item-single-image-container' key={image.id}>
-                  <img  alt='...' src={image.objectURL}></img>
+              return <div className='add-item-single-image-container' key={image?.id}>
+                  <img  alt='...' src={image?.objectURL}></img>
                   <button><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteImage(image.id)}/></button>
                 </div>
                 
@@ -171,7 +232,9 @@ const AddItem = () => {
         </div>
         <div className='submit-buttons'>
           <button onClick={()=>navigate('/')}>Cancel</button>
-          <button onClick={handleSubmitAddItem}>Submit</button>
+          {item !==null &&<button onClick={handleDeleteItem}>Delete Item</button>}
+          {item !==null &&<button onClick={handleUpdateItem}>Update</button>}
+          {item ===null &&<button onClick={handleSubmitAddItem}>Submit</button>}
         </div>
         
     </div>:   <div className='no-item-container '>
