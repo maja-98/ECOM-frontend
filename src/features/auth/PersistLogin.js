@@ -58,16 +58,21 @@ const PersistLogin = () => {
           </div>
         </div>
     } else if (isError) { 
-        
-        content = (
-      <div className='no-item-container '>
-          <div className='flex-center-column'>
-            <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
-            <p>Error</p>
-            <p>{error?.error!==undefined?<p>Service Not Available</p>:<p>{error.data.message}</p>}</p>
-          </div>
-        </div>
-        )
+        if (error?.data?.message==='Unauthorized' && window.location.pathname==='/'){
+            content =<Outlet/>
+        }
+        else{
+            content = (
+        <div className='no-item-container '>
+            <div className='flex-center-column'>
+                <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
+                <p>Error</p>
+                <p>{error?.error!==undefined?<p>Service Not Available</p>:<p>{error.data.message}</p>}</p>
+            </div>
+            </div>
+            )
+        }
+
     } else if (isSuccess && trueSuccess) { 
         
         content = <Outlet />

@@ -59,8 +59,9 @@ const Header = () => {
       </div>
   
       <div onClick={handleLoginView}  className='flex-center-row pointer'>
-        <FontAwesomeIcon icon={faUser} size='lg' />
+        <FontAwesomeIcon className='sm-none' icon={faUser} size='lg' />
         <h4 className='sm-none'>{username ? username:'Login'}</h4>
+        <div className='username-mobile-icon lg-none'><h4>{username ? username.slice(0,2): <FontAwesomeIcon  icon={faUser} size='2x' />}</h4></div>
       </div>
 
 
