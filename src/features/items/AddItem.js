@@ -32,9 +32,9 @@ const AddItem = () => {
     const [updateItem] = useUpdateItemMutation()
     const [deleteItem] = useDeleteItemMutation()
     useEffect(()=>{
-      if (item?.images?.objectURL===undefined){
+      if (item?.images?.objectURL===undefined && item){
         const newImages = []
-        item.images.forEach(element => {
+        item?.images.forEach(element => {
           newImages.push({id:uuid4(),objectURL:element})   
         });
         setImages(newImages)
