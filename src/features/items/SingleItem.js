@@ -56,12 +56,18 @@ const SingleItem = ({itemId,handleViewItem}) => {
       }
 
       if (newStart>newEnd){
-          newArray = [...item.images.slice(newStart,item.images.length),...item.images.slice(0,newEnd+1)]     
+          if (newStart===item.images.length){
+            newStart=0
+            newEnd=3
+            newArray = item.images.slice(newStart,newEnd)
+          }else{
+            newArray = [...item.images.slice(newStart,item.images.length),...item.images.slice(0,newEnd+1)]    
+          }
+           
       }
       else{
         newArray = item.images.slice(newStart,newEnd)
       }
-      console.log(newArray,newStart,newEnd)
       setStart(newStart)
       setEnd(newEnd)
       setDisplayImages(newArray)

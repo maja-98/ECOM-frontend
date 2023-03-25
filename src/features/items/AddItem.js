@@ -109,7 +109,6 @@ const AddItem = () => {
         
       }else{
           let imageLocations = await Promise.all(images.map(image=>  {
-            console.log(image.objectURL.slice(0,4))
             if(image.objectURL.slice(0,4)==='blob'){
               return uploadToS3({file:image.file})
             }
@@ -118,7 +117,6 @@ const AddItem = () => {
             }
             
           }))
-          console.log(imageLocations)
           const result = await updateItem({id:item._id,itemname,price,inventory,images:imageLocations,sizes,colors,category,brand})
           if (result?.data?.message){
             setMessage(result?.data?.message)

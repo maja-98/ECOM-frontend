@@ -1,6 +1,6 @@
 ### Dev Site deployed on netlify
 
-https://dubai-pardha-palace.netlify.app/
+https://mens-boutique.netlify.app/
 
 ## Stories
 
@@ -13,7 +13,8 @@ https://dubai-pardha-palace.netlify.app/
 - [x] Add a filter in Orders page to filter by Status for Admins
 - [x] Create Authentication and Permissions and Implement
 - [x] Mobile and Tablet resposive Site
-- [] Add Ad to Cart functionality and pop up in Single Item Page
-- [] Responsie app testing
+- [x] Add 'Add to Cart' functionality and pop up in Single Item Page
+- [] Add production like items and manual test the app with all possible scenarios
+- [] Responsive app testing
 - [] UI enhancement
 - [] Optimize the whole app performance

@@ -130,9 +130,8 @@ const CartView = () => {
               return ( 
                 <li className='cart-items' key={item._id}> 
                   <div className='cart-image-container'>
-                    {item.images.map((image,i) => {
-                      return <img key={i} className='item-image' src={image} alt='Not Loaded'></img>
-                    })}                    
+                     <img className='item-image' src={item.images[0]} alt='Not Loaded'></img>
+                                     
                   </div>
                   <div className='cart-items-price-container'>
                     <h4>{item.itemname}</h4>
@@ -159,7 +158,9 @@ const CartView = () => {
             </div>
           </div>
           <div className='total-price-cart-container'>
+              
               {isUpdateCartLoading===false?<p>Total: {totalPrice}₹</p>:<p><FontAwesomeIcon icon={faSpinner} spin></FontAwesomeIcon></p>}
+              <small>Payement Method: COD</small>
             </div>
         </div>  
         <div className='shipping-form'>

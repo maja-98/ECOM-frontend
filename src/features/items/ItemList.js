@@ -1,4 +1,4 @@
-import {  faCartPlus,  faInfo, faPen, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faCartPlus,  faInfo, faPen, faSadTear, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect,  useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -110,6 +110,17 @@ const ItemList = () => {
     </>
 
    )
+  }
+  else if (items.length===0){
+    content = (
+      <div className='no-item-container '>
+
+                <div className='flex-center-column'>
+                  <FontAwesomeIcon icon={faSadTear}  size='3x'/>
+                  <p>No Items Found</p>
+                </div>
+              </div>      
+    )
   }
   else{
 

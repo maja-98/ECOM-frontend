@@ -14,3 +14,10 @@
             height: 20px;
         }
 }
+@media screen and (max-width:400px) {
+    .footer-container {
+       position: relative;
+       width: 100%;
+       top: 60px;
+    }
+}
