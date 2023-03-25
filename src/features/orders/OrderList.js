@@ -1,4 +1,4 @@
-import { faCaretDown, faCaretUp, faSadTear, faSpinner, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faCaretUp, faSadTear, faSpinner} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import PopUp from '../../components/PopUp'
@@ -79,8 +79,7 @@ const OrderList = () => {
       content = (
       <div className='no-item-container '>
           <div className='flex-center-column'>
-            <FontAwesomeIcon icon={faTriangleExclamation}  size='3x'/>
-            <p>Error</p>
+            <FontAwesomeIcon icon={faSadTear}  size='3x'/>
             <p>{error.data.message}</p>
           </div>
         </div>
