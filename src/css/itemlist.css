@@ -54,7 +54,7 @@
     border-radius: 5px;
     width: 100%;
     aspect-ratio: 1/1;
-    height: 100%;
+    height: 150px;
     object-fit: cover;
 }
 .item-price{
@@ -139,6 +139,9 @@
         align-items: center;
         justify-content: center;
     }
+        .item-image {
+            height: 120px;
+        }
 }
 @media screen and (((max-width:400px) or (max-height:400px)) ) {
     .item-list-container {
@@ -200,4 +203,17 @@
 .add-to-cart-container>button>p>svg{
     font-size: 10px;
 }
+.item-image {
+    height: 80px;
+}
+}
+@media screen and (max-width:1000px){
+.item-image {
+        height: 120px;
+    }
+}
+@media screen and (max-width:600px){
+.item-image {
+        height: 100px;
+    }
 }
