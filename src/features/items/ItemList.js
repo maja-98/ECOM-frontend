@@ -113,13 +113,16 @@ const ItemList = () => {
   }
   else if (items.length===0){
     content = (
+      <>
+    <ItemFilter/>
       <div className='no-item-container '>
 
                 <div className='flex-center-column'>
                   <FontAwesomeIcon icon={faSadTear}  size='3x'/>
                   <p>No Items Found</p>
                 </div>
-              </div>      
+              </div>   
+              </>   
     )
   }
   else{
